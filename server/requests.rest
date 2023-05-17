@@ -16,4 +16,4 @@ DELETE http://localhost:3001/listings/delete/64650fec68a07254682535a3
 
 ###
 
-PUT http://localhost:3001/dog_walker/rating/64650fec68a07254682535a3
+PUT http://localhost:3001/dog_walker/rating/64651abc0a1c19aa1b9b66a5

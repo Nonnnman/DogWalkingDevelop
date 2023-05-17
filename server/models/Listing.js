@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ListingSchema = new Schema({
     walker_name: {
         type: String,
-        required: true,
+        required: false,
     },
     rating: {
         type: Number,
