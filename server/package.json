@@ -1,0 +1,19 @@
+{
+  "name": "dog-walker-app",
+  "version": "1.0.0",
+  "description": "This project is aimed at providing a platform to help dog owners who are unable to walk their dogs and are looking for dog walking jobs.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
