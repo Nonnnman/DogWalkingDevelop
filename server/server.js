@@ -1,6 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config()
+
 
 const app = express();
 
@@ -8,7 +12,8 @@ app.use(express.json());
 app.use(cors());
 
 
-mongoose.connect("mongodb+srv://notenoughsnow:aminos11@cluster0.33rqo.mongodb.net/?retryWrites=true&w=majority", {
+
+mongoose.connect("mongodb+srv://"+process.env.NAME+":"+process.env.PASS+"@cluster0.33rqo.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -34,6 +39,17 @@ app.post('/dog_walker/new', (req, res) => {
     res.json(dog_walker);
 });
 
+app.post('/dog_walker/new', (req, res) => {
+    const dog_walker = new Listing({
+        username: req.body.username,
+        password: req.body.password,
+    });
+
+    dog_walker.save();
+
+    res.json(dog_walker);
+});
+
 app.delete('/listings/delete/:id', async (req, res) => {
     const result = await Listing.findByIdAndDelete(req.params.id);
 
@@ -50,5 +66,5 @@ app.put('/dog_walker/rating/:id', async (req, res) => {
     res.json(dog_walker);
 })
 
-app.listen(3001, () => console.log("Server started on port 3001"));
+app.listen(process.env.PORT, () => console.log("Server started on port 3001"));
 
