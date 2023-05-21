@@ -49,6 +49,6 @@ const dogOwnerSchema = new Schema({
   timestamps: true,
 });
 
-const User = mongoose.model('DogOwner', dogOwnerSchema);
+const DogOwner = mongoose.model('DogOwner', dogOwnerSchema);
 
 module.exports = DogOwner;
