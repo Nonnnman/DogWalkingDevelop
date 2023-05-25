@@ -5,11 +5,15 @@ const dotenv = require('dotenv');
 
 dotenv.config()
 
+//route imports
+const userRoutes = require("./routes/user");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.use('/api/user', userRoutes)
 
 
 
@@ -21,6 +25,9 @@ mongoose.connect("mongodb+srv://"+process.env.NAME+":"+process.env.PASS+"@cluste
     .catch(console.error);
 
 const Listing = require('./models/Listing');
+
+const Profiles = require('./models/Profile');
+
 
 app.get('/listings', async (req,res) => {
     const listings = await Listing.find();
