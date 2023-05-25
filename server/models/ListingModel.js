@@ -16,6 +16,4 @@ const ListingSchema = new Schema({
     },
 })
 
-const Listing = mongoose.model("Listing",ListingSchema);
-
-module.exports = Listing;
+module.exports = mongoose.model("Listing",ListingSchema);
