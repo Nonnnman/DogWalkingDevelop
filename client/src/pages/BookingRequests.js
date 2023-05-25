@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchListings = async () => {
-      const response = await fetch('/api/listings', {
+      const response = await fetch('/api/bookings', {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -34,7 +34,7 @@ const Home = () => {
     <div className="home">
       <div className="workouts">
         {listings && listings.map((item) => (
-          <h4>{item.walker_name}</h4>
+          <h4>{item.owner}</h4>
         ))}
       </div>
     </div>

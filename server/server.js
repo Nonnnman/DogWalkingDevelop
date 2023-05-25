@@ -8,6 +8,7 @@ dotenv.config()
 //route imports
 const userRoutes = require("./routes/user");
 const listingRoutes = require("./routes/listing");
+const bookingRoutes = require("./routes/booking");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 
 app.use('/api/user', userRoutes)
 app.use('/api/listings',listingRoutes)
+app.use('/api/bookings',bookingRoutes)
 
 
 

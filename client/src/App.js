@@ -7,7 +7,8 @@ import { useAuthContext } from './hooks/useAuthContext';
 import Navbar from './components/Navbar'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
-import Home from './pages/Home'
+import BookingRequests from './pages/BookingRequests'
+import Listing from './pages/Listing'
 
 
 function App() {
@@ -20,16 +21,20 @@ function App() {
         <div className="pages">
           <Routes>
           <Route 
-              path="/"
-              element={user ? <Home /> : <Navigate to="/login "/>}
+              path="/list"
+              element={<Listing/>}
+            />
+          <Route 
+              path="/requests"
+              element={user ? <BookingRequests /> : <Navigate to="/login "/>}
             />
             <Route 
               path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />}
+              element={!user ? <Login /> : <Navigate to="/requests" />}
             />
             <Route 
               path="/signup"
-              element={!user ? <Signup/> : <Navigate to="/" />}
+              element={!user ? <Signup/> : <Navigate to="/requests" />}
             />            
           </Routes>
         </div>
