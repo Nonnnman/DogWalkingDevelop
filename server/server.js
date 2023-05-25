@@ -5,6 +5,10 @@ const dotenv = require('dotenv');
 
 dotenv.config()
 
+//Route
+const dogwalkerRoutes = require('./routes/DogWalker');
+const dogownerRoutes = require('./routes/DogOwner');
+const AppointmentRoutes = require('./routes/Appointment');
 
 const app = express();
 
