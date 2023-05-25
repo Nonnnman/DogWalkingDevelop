@@ -24,10 +24,10 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <div className="home">
-      <div className="workouts">
+    <div>
+      <div>
         {listings && listings.map((item) => (
-          <h4>{item.username}</h4>
+          <h4 key={item._id}>{item.username}</h4>
         ))}
       </div>
     </div>

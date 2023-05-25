@@ -34,7 +34,7 @@ const Home = () => {
     <div>
       <div>
         {listings && listings.map((item) => (
-          <h4>{item.owner}</h4>
+          <h4 key={item._id}>{item.owner}</h4>
         ))}
       </div>
     </div>
