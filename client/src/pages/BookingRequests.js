@@ -31,8 +31,8 @@ const Home = () => {
   }, [dispatch, user])
 
   return (
-    <div className="home">
-      <div className="workouts">
+    <div>
+      <div>
         {listings && listings.map((item) => (
           <h4>{item.owner}</h4>
         ))}
