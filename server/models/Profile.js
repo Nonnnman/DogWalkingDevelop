@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 
-
 const ProfileSchema = new Schema({
     username: {
         type: String,
@@ -14,19 +13,28 @@ const ProfileSchema = new Schema({
         type: String,
         required: true,
     },
+    rate:{
+        type: Number,
+        defualt:0,
+    },
+    city:{
+        type: String,
+        enum: ['Budapest', "Pecs"],
+        default: "Budapest"
+    }
 })
 
 // static signup method
-ProfileSchema.statics.signup = async function(username, password) {
+ProfileSchema.statics.signup = async function (username, password) {
 
     //validation
-    if (!username || !password){
+    if (!username || !password) {
         throw Error('All fields must be filled');
     }
-    if (!validator.isStrongPassword(password)){
+    if (!validator.isStrongPassword(password)) {
         throw Error('Password not strong enough');
     }
-    
+
 
     const exists = await this.findOne({ username });
 
@@ -36,18 +44,18 @@ ProfileSchema.statics.signup = async function(username, password) {
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    
-    const user = await this.create({ username, password: hash});
+
+    const user = await this.create({ username, password: hash });
 
     return user;
 }
 
-ProfileSchema.statics.login = async function(username, password) {
+ProfileSchema.statics.login = async function (username, password) {
     //validation
-    if (!username || !password){
+    if (!username || !password) {
         throw Error('All fields must be filled');
     }
-    
+
     const user = await this.findOne({ username });
 
     if (!user) {
@@ -56,11 +64,11 @@ ProfileSchema.statics.login = async function(username, password) {
 
     const match = await bcrypt.compare(password, user.password);
 
-    if(!match){
+    if (!match) {
         throw Error('Incorrect password');
     }
 
     return user;
 }
 
-module.exports = mongoose.model("Profile",ProfileSchema);
+module.exports = mongoose.model("Profile", ProfileSchema);

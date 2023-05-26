@@ -2,7 +2,7 @@ const express = require("express");
 
 
 //controller functions
-const {signUpUser, loginUser, getUsers, getUser, updateUser } = require("../controllers/userController");
+const {signUpUser, loginUser, getUsers, getUser, updateUser, getFilteredUsers } = require("../controllers/userController");
 
 const router = express.Router();
 
@@ -19,6 +19,8 @@ router.post('/login', loginUser);
 router.post('/signup', signUpUser);
 
 // UPDATE a booking
-router.patch('/:id', updateUser)
+router.patch('/:id', updateUser);
+
+router.get('/dogwalkers', getFilteredUsers);
 
 module.exports = router;

@@ -10,7 +10,15 @@ const createToken = (_id) => {
 
 // get all users
 const getUsers = async (req, res) => {
-    const users = await User.find({}).sort({createdAt: -1})
+    const { rate, city } = req.query;
+    let sorting = [];
+    if (rate){
+        sorting.push(['rate',-1]);
+    }
+    sorting.push(['createdAt', -1]);
+
+
+    const users = await User.find({city}).sort(sorting);
 
     res.status(200).json(users)
 }
@@ -32,6 +40,18 @@ const getUser = async (req, res) => {
     res.status(200).json(user)
   }
 
+
+  const getFilteredUsers = async (req, res) => {
+    const { rate } = req.params
+
+    const users = await User.find({}).sort({rate:1});
+  
+    if (!users) {
+      return res.status(404).json({error: 'No users'})
+    }
+    
+    res.status(200).json(users)
+  }
 
 //login user
 const loginUser = async (req, res) => {
@@ -90,4 +110,4 @@ const updateUser = async (req, res) => {
 
 
 
-module.exports = {getUser, getUsers, signUpUser, loginUser, updateUser,  }
+module.exports = {getUser, getUsers, signUpUser, loginUser, updateUser, getFilteredUsers }

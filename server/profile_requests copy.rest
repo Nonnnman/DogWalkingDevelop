@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/review
+
+Content-Type: application/json
+
+{
+    "comment": "hi John Doe",
+    "rate" : 3.5,
+    "dogWalkerId": "646d2b522791133e7f7beb40"
+}
