@@ -9,7 +9,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import BookingRequests from './pages/BookingRequests'
 import Listing from './pages/Listing'
-
+import Calendar from './Calendar';
 
 function App() {
   const { user } = useAuthContext()
@@ -37,6 +37,7 @@ function App() {
               element={!user ? <Signup/> : <Navigate to="/requests" />}
             />            
           </Routes>
+          <Calendar/>
         </div>
       </BrowserRouter>
     </div>

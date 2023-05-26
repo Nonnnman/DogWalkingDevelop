@@ -1,15 +1,15 @@
 import { useEffect }from 'react'
-import { useListingsContext } from "../hooks/useListingsContext"
+import { useBookingsContext } from "../hooks/useBookingsContext"
 import { useAuthContext } from '../hooks/useAuthContext'
 
 
 
-const Home = () => {
-  const {listings, dispatch} = useListingsContext()
+const BookingRequests = () => {
+  const {bookings, dispatch} = useBookingsContext()
   const {user} = useAuthContext()
 
   useEffect(() => {
-    const fetchListings = async () => {
+    const fetchBookings = async () => {
       const response = await fetch('/api/bookings', {
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -26,14 +26,14 @@ const Home = () => {
     }
 
     if (user){
-      fetchListings()
+      fetchBookings()
     }
   }, [dispatch, user])
 
   return (
     <div>
       <div>
-        {listings && listings.map((item) => (
+        {bookings && bookings.map((item) => (
           <h4 key={item._id}>{item.owner}</h4>
         ))}
       </div>
@@ -41,4 +41,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default BookingRequests

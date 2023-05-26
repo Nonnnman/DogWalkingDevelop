@@ -14,6 +14,11 @@ const ProfileSchema = new Schema({
         type: String,
         required: true,
     },
+    rating: {
+        type: Number,
+        required: false,
+    },
+    
 })
 
 // static signup method

@@ -3,7 +3,7 @@ import { useListingsContext } from "../hooks/useListingsContext"
 
 
 
-const Home = () => {
+const Listing = () => {
   const {listings, dispatch} = useListingsContext()
 
   useEffect(() => {
@@ -34,4 +34,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Listing
