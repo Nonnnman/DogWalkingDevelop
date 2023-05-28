@@ -1,34 +1,34 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useReducer } from "react";
 
-export const BookingsContext = createContext()
+export const BookingsContext = createContext();
 
 export const bookingsReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_LISTING': 
+    case "SET_LISTING":
       return {
-        bookings: action.payload
-      }
-    case 'CREATE_LISTING':
+        bookings: action.payload,
+      };
+    case "CREATE_LISTING":
       return {
-        bookings: [action.payload, ...state.bookings]
-      }
-    case 'DELETE_LISTING':
+        bookings: [action.payload, ...state.bookings],
+      };
+    case "DELETE_LISTING":
       return {
-        bookings: state.bookings.filter((w) => w._id !== action.payload._id)
-      }
+        bookings: state.bookings.filter((w) => w._id !== action.payload._id),
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const BookingsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(bookingsReducer, {
-    bookings: null
-  })
+    bookings: null,
+  });
 
   return (
-    <BookingsContext.Provider value={{...state, dispatch}}>
-      { children }
+    <BookingsContext.Provider value={{ ...state, dispatch }}>
+      {children}
     </BookingsContext.Provider>
-  )
-}
+  );
+};

@@ -1,19 +1,17 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import { useAuthContext } from './hooks/useAuthContext';
+import "./App.css";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 
-
-import Navbar from './components/Navbar'
-import Signup from './pages/Signup'
-import Login from './pages/Login'
-import BookingRequests from './pages/BookingRequests'
-import Listing from './pages/Listing'
-import Profile from './pages/Profile'
-
+import Navbar from "./components/Navbar";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import BookingRequests from "./pages/BookingRequests";
+import Listing from "./pages/Listing";
+import Profile from "./pages/Profile";
 
 function App() {
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
 
   return (
     <div className="App">
@@ -21,32 +19,28 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-          <Route 
-              path="/list"
-              element={<Listing/>}
-            />
-          <Route 
+            <Route path="/list" element={<Listing />} />
+            <Route
               path="/profile"
-              element={user ? <Profile /> : <Navigate to="/login"/> }
+              element={user ? <Profile /> : <Navigate to="/login" />}
             />
-          <Route 
+            <Route
               path="/requests"
-              element={user ? <BookingRequests /> : <Navigate to="/login "/>}
+              element={user ? <BookingRequests /> : <Navigate to="/login " />}
             />
-            <Route 
+            <Route
               path="/login"
               element={!user ? <Login /> : <Navigate to="/profile" />}
             />
-            <Route 
+            <Route
               path="/signup"
-              element={!user ? <Signup/> : <Navigate to="/profile"/>}
-            />            
+              element={!user ? <Signup /> : <Navigate to="/profile" />}
+            />
           </Routes>
         </div>
       </BrowserRouter>
     </div>
   );
 }
-
 
 export default App;

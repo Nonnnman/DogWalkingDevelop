@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const DogWalkerDetail = () => {
   const { id } = useParams();
   const [dogWalker, setDogWalker] = useState(null);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     // 根据id获取遛狗者的详细信息GetDogWalkerByID
@@ -15,20 +14,20 @@ const DogWalkerDetail = () => {
 
     // 示例代码
     fetch(`/api/dogwalkers${id}`)
-      .then(response => response.json())
-      .then(data => setDogWalker(data))
-      .catch(error => console.log(error));
+      .then((response) => response.json())
+      .then((data) => setDogWalker(data))
+      .catch((error) => console.log(error));
   }, [id]);
 
-  const handleRatingChange = event => {
+  const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
 
-  const handleCommentChange = event => {
+  const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
 
-  const handleSubmitReview = event => {
+  const handleSubmitReview = (event) => {
     event.preventDefault();
 
     // 提交评论和打分的逻辑submit comment and rating
@@ -38,27 +37,27 @@ const DogWalkerDetail = () => {
     const reviewData = {
       rating: rating,
       comment: comment,
-      dogWalkerId: id
+      dogWalkerId: id,
     };
 
     fetch(`/api/dogwalkers/${id}/reviews`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(reviewData)
+      body: JSON.stringify(reviewData),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         // 根据需要处理成功提交评论的逻辑
-        console.log('Review submitted successfully', data);
+        console.log("Review submitted successfully", data);
         // 清空打分和评论输入框 clear
         setRating(0);
-        setComment('');
+        setComment("");
       })
-      .catch(error => {
+      .catch((error) => {
         // 根据需要处理提交评论失败的逻辑
-        console.error('Error submitting review', error);
+        console.error("Error submitting review", error);
       });
   };
 
@@ -102,7 +101,7 @@ const DogWalkerDetail = () => {
           <h2>Reviews</h2>
           {dogWalker.reviews.length > 0 ? (
             <ul>
-              {dogWalker.reviews.map(review => (
+              {dogWalker.reviews.map((review) => (
                 <li key={review.id}>
                   <p>Rating: {review.rating}</p>
                   <p>Comment: {review.comment}</p>
