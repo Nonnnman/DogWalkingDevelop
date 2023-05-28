@@ -25,7 +25,7 @@ const getUser = async (req, res) => {
   
     const user = await User.findById(id)
   
-    if (!booking) {
+    if (!user) {
       return res.status(404).json({error: 'No such user'})
     }
     

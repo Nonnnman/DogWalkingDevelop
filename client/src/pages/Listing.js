@@ -2,13 +2,13 @@ import { useEffect }from 'react'
 import { useListingsContext } from "../hooks/useListingsContext"
 
 
-
 const Listing = () => {
+
   const {listings, dispatch} = useListingsContext()
 
   useEffect(() => {
     const fetchListings = async () => {
-      const response = await fetch('/api/user', {
+      const response = await fetch('/api/user/', {
         headers: {
         }
       })
