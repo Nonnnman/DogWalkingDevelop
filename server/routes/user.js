@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/", getUsers);
 
 //GET a specific profile
-router.get("/:id", getUser);
+router.get("/:username", getUser);
 
 // login route
 router.post("/login", loginUser);

@@ -26,6 +26,16 @@ const CreateSegment = () => {
 
   return (
     <div>
+      <h1>Profile</h1>
+      <input 
+        type="number"
+        min="0" 
+        step="100" />
+        
+      <input 
+        type="text"
+        placeholder="start" />
+
       <Cal username={username} />
       <form className="login" onSubmit={handleSubmit}>
         <h3>Submit a time segment</h3>

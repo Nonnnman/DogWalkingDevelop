@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 const localizer = momentLocalizer(moment);
 
+
 const Cal = (username) => {
   console.log(username.username);
 
@@ -30,6 +31,7 @@ const Cal = (username) => {
         dispatch({ type: "SET_LISTING", payload: json });
       }
     };
+
     fetchSegments();
   }, [dispatch]);
 
