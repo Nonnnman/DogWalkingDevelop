@@ -10,17 +10,9 @@ const BookingSchema = new Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now(),
-  },
-  startTime: {
+  seg_id: {
     type: String,
-    required: false,
-  },
-  endTime: {
-    type: String,
-    required: false,
+    required: true,
   },
 });
 

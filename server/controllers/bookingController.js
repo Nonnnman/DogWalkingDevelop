@@ -36,32 +36,12 @@ const getBooking = async (req, res) => {
   res.status(200).json(booking);
 };
 
-// create new booking
-const createBooking = async (req, res) => {
-  const { owner } = req.body;
-
-  let emptyFields = [];
-
-  /*if(!owner) {
-      emptyFields.push('title')
-    }
-    if(emptyFields.length > 0) {
-      return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
-    }*/
-
-  // add doc to db
-  try {
-    const walker = req.user.username;
-    const booking = await Booking.create({ owner, walker });
-    res.status(200).json(booking);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 // create new complete booking
-const createCompleteBooking = async (req, res) => {
-  const { owner, walker } = req.body;
+const createBooking = async (req, res) => {
+  const { owner, walker, seg_id } = req.body;
+
+  console.log("we are here");
 
   let emptyFields = [];
 
@@ -74,7 +54,7 @@ const createCompleteBooking = async (req, res) => {
 
   // add doc to db
   try {
-    const booking = await Booking.create({ owner, walker });
+    const booking = await Booking.create({ owner, walker, seg_id });
     res.status(200).json(booking);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -125,7 +105,6 @@ module.exports = {
   getUserBookings,
   getBooking,
   createBooking,
-  createCompleteBooking,
   deleteBooking,
   updateBooking,
 };

@@ -4,6 +4,7 @@ const {
   getSegments,
   getUserSegments,
   createSegment,
+  deleteSegment,
 } = require("../controllers/segmentController");
 
 const router = express.Router();
@@ -19,5 +20,8 @@ router.get("/:id", getSegment);
 
 //POST a segment
 router.post("/", createSegment);
+
+//DELETE a segment
+router.delete("/:id", deleteSegment);
 
 module.exports = router;

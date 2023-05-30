@@ -62,4 +62,21 @@ const createSegment = async (req, res) => {
   }
 };
 
-module.exports = { getSegment, getSegments, getUserSegments, createSegment };
+// delete a booking
+const deleteSegment = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such booking" });
+  }
+
+  const segment = await Segment.findOneAndDelete({ _id: id });
+
+  if (!segment) {
+    return res.status(400).json({ error: "No such booking" });
+  }
+
+  res.status(200).json(segment);
+};
+
+module.exports = { getSegment, getSegments, getUserSegments, createSegment, deleteSegment };

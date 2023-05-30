@@ -11,6 +11,7 @@ import Listing from "./pages/Listing";
 import Profile from "./pages/Profile";
 // imports the UserProfile page
 import UserProfile from "./pages/UserProfile";
+import BookWalker from "./pages/BookWalker";
 
 function App() {
   // get the user from the auth context. await for the user to be fetched
@@ -35,16 +36,20 @@ function App() {
               element={user ? <Profile /> : <Navigate to="/login" />}
             />
             <Route
-              path="/requests"
-              element={user ? <BookingRequests /> : <Navigate to="/login " />}
+              path="/UserProfile/:username/book"
+              element={<BookWalker />}
+            />
+            <Route
+              path="/UserProfile/:username/requests"
+              element={<BookingRequests />}
             />
             <Route
               path="/login"
-              element={!user ? <Login /> : <Navigate to="/profile" />}
+              element={!user ? <Login /> : <Navigate to="/" />}
             />
             <Route
               path="/signup"
-              element={!user ? <Signup /> : <Navigate to="/profile" />}
+              element={!user ? <Signup /> : <Navigate to="/" />}
             />
           </Routes>
         </div>
