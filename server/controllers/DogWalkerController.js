@@ -1,4 +1,4 @@
-const User = require('../models/Profile');
+const User = require('../models/DogWalkerProfile');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose')
 
@@ -9,24 +9,24 @@ const createToken = (_id) => {
 
 
 // get all users
-const getUsers = async (req, res) => {
+const getDogWalkers = async (req, res) => {
     const users = await User.find({}).sort({createdAt: -1})
 
     res.status(200).json(users)
 }
 
 // get a single user
-const getUser = async (req, res) => {
+const getDogWalker = async (req, res) => {
     const { id } = req.params
   
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({error: 'No such user'})
+      return res.status(404).json({error: 'No such dog walker'})
     }
   
     const user = await User.findById(id)
   
     if (!booking) {
-      return res.status(404).json({error: 'No such user'})
+      return res.status(404).json({error: 'No such dog walker'})
     }
     
     res.status(200).json(user)
@@ -34,7 +34,7 @@ const getUser = async (req, res) => {
 
 
 //login user
-const loginUser = async (req, res) => {
+const loginDogWalker = async (req, res) => {
     const {username, password} = req.body;
 
     try {
@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
 }
 
 //signup user
-const signUpUser = async (req, res) => {
+const signUpDogWalker = async (req, res) => {
     const {username, password} = req.body;
 
     try {
@@ -69,11 +69,11 @@ const signUpUser = async (req, res) => {
 }
 
 //signup user
-const updateUser = async (req, res) => {
+const updateDogWalker = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such user'})
+        return res.status(404).json({error: 'No such dog walker'})
       }
     
     const user = await User.findById(id)
@@ -81,7 +81,7 @@ const updateUser = async (req, res) => {
     res.status(200).json(user);
 
     if (!user) {
-        return res.status(404).json({error: 'No such user'})
+        return res.status(404).json({error: 'No such dog walker'})
         }
 
     res.status(200).json(user)
@@ -90,4 +90,4 @@ const updateUser = async (req, res) => {
 
 
 
-module.exports = {getUser, getUsers, signUpUser, loginUser, updateUser}
+module.exports = {getDogWalker, getDogWalkers, signUpDogWalker, loginDogWalker, updateDogWalker}
