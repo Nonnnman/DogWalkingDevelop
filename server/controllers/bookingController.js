@@ -10,11 +10,9 @@ const getBookings = async (req, res) => {
 
 // get specific user bookings
 const getUserBookings = async (req, res) => {
-  const walker = req.user.username;
+  const { username } = req.params;
 
-  //console.log(req.user)
-
-  const bookings = await Booking.find({ walker }).sort({ createdAt: -1 });
+  const bookings = await Booking.find({ walker : username }).sort({ createdAt: -1 });
 
   res.status(200).json(bookings);
 };
@@ -39,7 +37,7 @@ const getBooking = async (req, res) => {
 
 // create new complete booking
 const createBooking = async (req, res) => {
-  const { owner, walker, seg_id } = req.body;
+  const { owner, walker, seg_id, status } = req.body;
 
   console.log("we are here");
 
@@ -54,7 +52,7 @@ const createBooking = async (req, res) => {
 
   // add doc to db
   try {
-    const booking = await Booking.create({ owner, walker, seg_id });
+    const booking = await Booking.create({ owner, walker, seg_id, status });
     res.status(200).json(booking);
   } catch (error) {
     res.status(400).json({ error: error.message });

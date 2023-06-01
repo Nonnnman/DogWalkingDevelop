@@ -9,16 +9,21 @@ import Login from "./pages/Login";
 import BookingRequests from "./pages/BookingRequests";
 import Listing from "./pages/Listing";
 import Profile from "./pages/Profile";
-// imports the UserProfile page
-import UserProfile from "./pages/UserProfile";
+// imports the WalkerProfile page
+import WalkerProfile from "./pages/WalkerProfile";
 import BookWalker from "./pages/BookWalker";
+// import homepage
+import Home from "./pages/Home";
 
 function App() {
   // get the user from the auth context. await for the user to be fetched
   const { user } = useAuthContext();
 
-  // not sure what this does
-  const [loading, setLoading] = useState(true);
+
+  //if user is not fetched, show loading
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   // if the user is fetched, show the website
   return (
@@ -27,29 +32,30 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route path="/UserProfile/:username" element={<UserProfile />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/WalkerProfile/:username" element={<WalkerProfile />} />
           </Routes>
           <Routes>
             <Route path="/list" element={<Listing />} />
             <Route
               path="/profile"
-              element={user ? <Profile /> : <Navigate to="/login" />}
+              element={<Profile />}
             />
             <Route
-              path="/UserProfile/:username/book"
+              path="/WalkerProfile/:username/book"
               element={<BookWalker />}
             />
             <Route
-              path="/UserProfile/:username/requests"
+              path="/WalkerProfile/:username/requests"
               element={<BookingRequests />}
             />
             <Route
               path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />}
+              element={<Login />}
             />
             <Route
               path="/signup"
-              element={!user ? <Signup /> : <Navigate to="/" />}
+              element={<Signup />}
             />
           </Routes>
         </div>

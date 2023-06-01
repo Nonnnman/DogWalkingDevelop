@@ -86,45 +86,6 @@ const BookingRequests = () => {
 
   return (
     <div>
-      <div className="segmentList">
-          {segments.map((segment) => (
-          
-          // segment item
-          <div className="segmentItem" key={segment._id}>
-            <p>{new Date(segment.start).toLocaleDateString()} -{" "}
-            {new Date(segment.end).toLocaleDateString()}</p>
-
-            <div className="bookingList">
-              {bookings.filter((booking) => booking.seg_id === segment._id).map((booking) => (
-
-                // booking item
-                <div className="bookingItem" key={booking._id}>
-                  <p>{booking.owner}</p>
-                  <p>{booking.status}</p>
-                  <button
-                    onClick={() => {
-                      acceptBooking(booking._id, booking.owner)
-                      //decline every other booking with the same segment_id
-                      //takes in a list of every other booking with the same segment_id
-                      const otherBookings = bookings.filter(
-                        (otherBooking) => otherBooking.seg_id === segment._id && otherBooking._id !== booking._id);
-                        //decline every other booking
-                        otherBookings.forEach((otherBooking) => {
-                          declineBooking(otherBooking._id, otherBooking.owner);
-                        });
-
-                    }}
-                  >Accept</button>
-                  
-
-                </div>
-
-                  ))}
-            </div>
-
-          </div>
-          ))}
-      </div>
       <h2>Bookings</h2>
       <div>
       {bookings &&

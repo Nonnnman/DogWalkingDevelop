@@ -30,10 +30,12 @@ function BookingPage() {
         walker: username,
         owner: ownerName,
         seg_id: selectedSegment._id,
+        status: "requested",
       }),
     })
       .then((response) => {
-        if(response.ok){
+        // no need to delete the segment after booking
+        /*if(response.ok){
           fetch(`/api/segments/${selectedSegment._id}`, {
             method: "DELETE",
           })
@@ -50,8 +52,10 @@ function BookingPage() {
               return response.json()})
             .then((data) => console.log(data))
             .catch((error) => console.error(error));
-        }
-        return response.json()})
+        }*/
+        return response.json() 
+      
+      })
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
   };

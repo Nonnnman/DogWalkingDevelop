@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-function UserProfile() {
+function WalkerProfile() {
 
   const { username } = useParams();
   const [user, setUser] = useState(null);
@@ -41,7 +41,7 @@ function UserProfile() {
       { editFlag && (
         <button
         onClick={() => {
-            navigate("/UserProfile/:username/editProfile");
+            navigate("/WalkerProfile/:username/editProfile");
         }}
         >
         Edit Profile
@@ -52,4 +52,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default WalkerProfile;
