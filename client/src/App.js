@@ -15,15 +15,25 @@ import BookWalker from "./pages/BookWalker";
 // import homepage
 import Home from "./pages/Home";
 
+
 function App() {
   // get the user from the auth context. await for the user to be fetched
   const { user } = useAuthContext();
 
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+    
+      setIsLoading(false);
+    
+  }, [user]);
 
   //if user is not fetched, show loading
-  if (!user) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
+
 
   // if the user is fetched, show the website
   return (
@@ -32,31 +42,14 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/WalkerProfile/:username" element={<WalkerProfile />} />
-          </Routes>
-          <Routes>
-            <Route path="/list" element={<Listing />} />
-            <Route
-              path="/profile"
-              element={<Profile />}
-            />
-            <Route
-              path="/WalkerProfile/:username/book"
-              element={<BookWalker />}
-            />
-            <Route
-              path="/WalkerProfile/:username/requests"
-              element={<BookingRequests />}
-            />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
-            <Route
-              path="/signup"
-              element={<Signup />}
-            />
+          <Route path="/" element={<Home/>} />
+            <Route path="/WalkerProfile/:username" element={user?(<WalkerProfile />):(<Navigate to="/" />)} />
+            <Route path="/list" element={user?(<Listing />):(<Navigate to="/" />)} />
+            <Route path="/profile" element={user?(<Profile />):(<Navigate to="/" />)}/>
+            <Route path="/WalkerProfile/:username/book" element={user?(<BookWalker />):(<Navigate to="/" />)} />
+            <Route path="/WalkerProfile/:username/requests" element={user?(<BookingRequests />):(<Navigate to="/" />)} />
+            <Route path="/login" element={!user?(<Login />):(<Navigate to="/" />)}/>
+            <Route path="/signup" element={!user?(<Signup />):(<Navigate to="/" />)}/>
           </Routes>
         </div>
       </BrowserRouter>

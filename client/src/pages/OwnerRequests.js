@@ -14,59 +14,9 @@ const BookingRequests = () => {
 
   console.log("username", username);
 
-  if(!user){
-    navigate("/login");
-  }
-
   if(!username || username !== user.username){
     navigate("/");
   }
-
-  //decline booking
-  const declineBooking = (booking_id, owner) => {
-    //print "declined for "+owner
-    alert("declined for "+owner);
-
-    fetch(`/api/bookings/${booking_id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        status: "declined",
-      }),
-    })
-      .then((response) => {
-        //TODO: update the status in real time
-        //TODO: send notifcation to owner
-        return response.json()})
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
-    }
-
-
-  //accept booking
-  const acceptBooking = (booking_id, owner) => {
-    //print "accepted for "+owner
-    alert("accepted for "+owner);
-
-    fetch(`/api/bookings/${booking_id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        status: "accepted",
-      }),
-    })
-      .then((response) => {
-        //TODO: update the status in real time
-        //TODO: send notifcation to owner
-        return response.json()})
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-  }
-
 
   useEffect(() => {
     fetch(`/api/segments/fromUser/${username}`)
@@ -86,6 +36,29 @@ const BookingRequests = () => {
 
   return (
     <div>
+      <div className="segmentList">
+          {segments.map((segment) => (
+          
+          // segment item
+          <div className="segmentItem" key={segment._id}>
+            <p>{new Date(segment.start).toLocaleDateString()} -{" "}
+            {new Date(segment.end).toLocaleDateString()}</p>
+
+            <div className="bookingList">
+              {bookings.filter((booking) => booking.seg_id === segment._id).map((booking) => (
+
+                // booking item
+                <div className="bookingItem" key={booking._id}>
+                  <p>{booking.owner}</p>
+                  <p>{booking.status}</p>
+                </div>
+
+                  ))}
+            </div>
+
+          </div>
+          ))}
+      </div>
       <h2>Bookings</h2>
       <div>
       {bookings &&

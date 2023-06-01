@@ -4,13 +4,16 @@ import { useSignup } from "../hooks/useSignup";
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("");
+
   const { signup, error, isloading } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await signup(username, password);
+    
+    await signup(username, password, userType);
   };
+
 
   return (
     <form className="signup" onSubmit={handleSubmit}>
@@ -26,6 +29,20 @@ const Signup = () => {
         type="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
+      />
+      <label>Owner</label>
+      <input
+        type="radio"
+        name="userType"
+        value="owner"
+        onChange={(e) => setUserType(e.target.value)}
+      />
+      <label>Walker</label>
+      <input
+        type="radio"
+        name="userType"
+        value="walker"
+        onChange={(e) => setUserType(e.target.value)}
       />
 
       <button disabled={isloading}>Sign up</button>

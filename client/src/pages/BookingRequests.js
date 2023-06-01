@@ -1,26 +1,50 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const BookingRequests = () => {
-  const {username} = useParams();
+  const {username: usernameParam} = useParams();
 
   const [bookings, setBookings] = useState([]);
   const [segments, setSegments] = useState([]);
+  const [username, setUser] = useState(null);
 
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  console.log("username", username);
+  useEffect(() => {
+    fetch(`/api/user/${usernameParam}`)
+      .then((response) =>{
+        if (response.ok){
+            return response.json();
+        } 
+        else {       
+              navigate("/");
+        }
+      }) 
+      .then((data) => {
+            if (data){
+                setUser(data.username);
+            }
+      });
+  }, [usernameParam, navigate]);
 
-  if(!user){
-    navigate("/login");
-  }
-
-  if(!username || username !== user.username){
+  if ( user.userType !== "walker"){
+    //TODO: change to page 404
+    console.log("not a walker");
     navigate("/");
   }
+
+  if(!username ||  username !== user.username){
+    navigate("/");
+  }
+
+  //filter out all bookings with status "declined"
+  const filterBookings = () => {
+    setBookings(bookings.filter((booking) => booking.status !== "declined"));
+  }
+
 
   //decline booking
   const declineBooking = (booking_id, owner) => {
@@ -37,8 +61,8 @@ const BookingRequests = () => {
       }),
     })
       .then((response) => {
-        //TODO: update the status in real time
-        //TODO: send notifcation to owner
+        
+        //filterBookings();
         return response.json()})
         .then((data) => console.log(data))
         .catch((error) => console.error(error));
@@ -62,6 +86,9 @@ const BookingRequests = () => {
       .then((response) => {
         //TODO: update the status in real time
         //TODO: send notifcation to owner
+
+        //filter out all other bookings for this segment
+  
         return response.json()})
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
@@ -79,6 +106,9 @@ const BookingRequests = () => {
       const response = await fetch(`/api/bookings/${username}`);
       const data = await response.json();
       setBookings(data);
+
+      //call the filter function
+      //filterBookings();
     }
     fetchData();
   }, [username]);
@@ -86,6 +116,7 @@ const BookingRequests = () => {
 
   return (
     <div>
+      <h1>Booking Requests for {username}</h1>
       <div className="segmentList">
           {segments.map((segment) => (
           
@@ -112,11 +143,8 @@ const BookingRequests = () => {
                         otherBookings.forEach((otherBooking) => {
                           declineBooking(otherBooking._id, otherBooking.owner);
                         });
-
                     }}
                   >Accept</button>
-                  
-
                 </div>
 
                   ))}

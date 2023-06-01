@@ -1,4 +1,5 @@
 const User = require("../models/Profile");
+const OwnerUser = require("../models/OwnerProfile");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
@@ -39,7 +40,7 @@ const loginUser = async (req, res) => {
     //create token
     const token = createToken(user._id);
 
-    res.status(200).json({ username, token });
+    res.status(200).json({ username, token, userType: user.userType });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -47,10 +48,10 @@ const loginUser = async (req, res) => {
 
 //signup user
 const signUpUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, userType } = req.body;
 
   try {
-    const user = await User.signup(username, password);
+    const user = await User.signup(username, password, userType);
 
     //create token
     const token = createToken(user._id);
