@@ -14,6 +14,28 @@ const getUsers = async (req, res) => {
   res.status(200).json(users);
 };
 
+//get all owners
+const getOwners = async (req, res) => {
+  const owners = await OwnerUser.find({}).sort({ createdAt: -1 });
+
+  res.status(200).json(owners);
+};
+
+//get a single owner
+const getOwner = async (req, res) => {
+  const { username } = req.params;  
+  
+  const owner = await OwnerUser.findOne({ username });
+
+  console.log(owner);
+
+  if (!owner) {
+    return res.status(404).json({ error: "No such user" });
+  }
+
+  res.status(200).json(owner);
+};
+
 // get a single user
 const getUser = async (req, res) => {
   const { username } = req.params;
@@ -22,7 +44,8 @@ const getUser = async (req, res) => {
   const user = await User.findOne({ username });
 
   console.log(user);
-
+  
+  
   if (!user) {
     return res.status(404).json({ error: "No such user" });
   }
@@ -81,4 +104,4 @@ const updateUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-module.exports = { getUser, getUsers, signUpUser, loginUser, updateUser };
+module.exports = { getUser, getUsers, signUpUser, loginUser,getOwner, getOwners, updateUser };

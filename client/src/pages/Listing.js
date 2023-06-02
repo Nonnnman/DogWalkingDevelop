@@ -21,7 +21,7 @@ const Listing = () => {
   }, [dispatch]);
 
   const visit = (username) => {
-    navigate("/UserProfile/" + username);
+    navigate("/WalkerProfile/" + username);
   };
 
   return (

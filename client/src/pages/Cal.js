@@ -82,7 +82,6 @@ const Cal = (username) => {
         />
       </div>
       <div>
-        This is where we at
         <div>
           {segments &&
             segments.map((item) => <h4 key={item._id}>{item.user}</h4>)}

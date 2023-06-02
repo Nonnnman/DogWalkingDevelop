@@ -14,6 +14,8 @@ import WalkerProfile from "./pages/WalkerProfile";
 import BookWalker from "./pages/BookWalker";
 // import homepage
 import Home from "./pages/Home";
+// import Walk interval page
+import WalkInterval from "./pages/WalkInterval";
 
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
 
 
   useEffect(() => {
-    
+
       setIsLoading(false);
     
   }, [user]);
@@ -40,11 +42,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <WalkInterval />
         <div className="pages">
           <Routes>
-          <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Home/>} />
             <Route path="/WalkerProfile/:username" element={user?(<WalkerProfile />):(<Navigate to="/" />)} />
-            <Route path="/list" element={user?(<Listing />):(<Navigate to="/" />)} />
+            <Route path="/list" element={<Listing />} />
             <Route path="/profile" element={user?(<Profile />):(<Navigate to="/" />)}/>
             <Route path="/WalkerProfile/:username/book" element={user?(<BookWalker />):(<Navigate to="/" />)} />
             <Route path="/WalkerProfile/:username/requests" element={user?(<BookingRequests />):(<Navigate to="/" />)} />

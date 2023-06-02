@@ -1,11 +1,28 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function BookingPage() {
   const { username } = useParams();
+  const { user } = useAuthContext();
   const [segments, setSegments] = useState([]);
   const [selectedSegment, setSelectedSegment] = useState(null);
   const [ownerName, setOwnerName] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`/api/user/owner/${user.username}`)
+      .then((response) =>{
+        if (response.ok){
+            
+            setOwnerName(user.username);
+            return response.json();
+        } 
+        else {       
+              navigate("/");
+        }
+      }) ;
+  }, [user.username]);
 
   useEffect(() => {
     fetch(`/api/segments/fromUser/${username}`)
@@ -62,8 +79,8 @@ function BookingPage() {
 
   return (
     <div>
-      <h1>Booking Page for {username}</h1>
-      <h2>Select a Segment:</h2>
+      <h1>Book {username} !</h1>
+      <h2>Please choose your preferred time</h2>
       <ul>
         {segments.map((segment) => (
           <li
@@ -79,12 +96,6 @@ function BookingPage() {
           </li>
         ))}
       </ul>
-      <h2>Enter Your Name:</h2>
-      <input
-        type="text"
-        value={ownerName}
-        onChange={(event) => setOwnerName(event.target.value)}
-      />
       <button onClick={handleBookingSubmit}>Send Request</button>
     </div>
   );

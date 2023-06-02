@@ -4,31 +4,41 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 function WalkerProfile() {
 
-  const { username } = useParams();
-  const [user, setUser] = useState(null);
+  const {username: usernameParam} = useParams();
+  const [username, setUser] = useState(null);
+  const [onGoingbookings, setBookings] = useState([]);
+  const { user } = useAuthContext();
   const navigate = useNavigate();
- const { user: currentUser } = useAuthContext();
 
   useEffect(() => {
-    fetch(`/api/user/${username}`)
-      .then((response) =>{
-        if (response.ok){
-            return response.json();
-        } 
-        else {       
-             navigate("/");
-        }
-      }) 
-      .then((data) => {
-            if (data){
-                setUser(data.username);
-            }
-      });
+    async function fetchData() {
+      const response = await fetch(`/api/bookings/${username}`);
+      const data = await response.json();
+      setBookings(data.filter((booking) => booking.status == "ongoing"));
+    }
+    fetchData();
+  }, [username]);
 
+ useEffect(() => {
+  fetch(`/api/user/${usernameParam}`)
+    .then((response) =>{
+      if (response.ok){
+          return response.json();
+      } 
+      else {       
+            navigate("/");
+      }
+    }) 
+    .then((data) => {
+          if (data){
+              setUser(data.username);
+          }
+    });
+}, [usernameParam, navigate]);
 
-  }, [username, navigate]);
+const notWalker = user.userType !== "walker";
 
-  const editFlag = currentUser && currentUser.username === username
+const isSameUser = username === user.username;
 
   if (!user) {
     return <div></div>;
@@ -36,18 +46,50 @@ function WalkerProfile() {
 
   return (
     <div>
-      <h1>{user}</h1>
       
-      { editFlag && (
+      <h2>{isSameUser? `Welcome ${username}` : `Welcome to ${username}'s profile`}</h2>
+
+      
+      { isSameUser && ( 
+        <div>
+          <button
+          onClick={() => {
+            navigate(`/WalkerProfile/${username}/edit`);
+          }}
+          >
+          Edit Profile
+          </button>
+          <div className="ongoingContainer">
+
+            <h3>Ongoing Bookings</h3>
+            {onGoingbookings.map((booking) => (
+              <div className="ongoingBooking" key={booking._id}>
+                <p>{booking.owner}</p>
+                <p>{booking.status}</p>
+                <button
+                onClick={() => {
+                  navigate(`/WalkerProfile/${username}/walk/${booking._id}`);
+                }}
+                >
+                Go to Walk page!
+                </button>
+              </div>
+              ))}
+
+          </div>
+        </div>
+        )
+      }
+      {notWalker && !isSameUser && (
         <button
         onClick={() => {
-            navigate("/WalkerProfile/:username/editProfile");
+            navigate(`/WalkerProfile/${username}/book`);
         }}
         >
-        Edit Profile
+        Book
         </button>
         )
-    }
+      }
     </div>
   );
 }

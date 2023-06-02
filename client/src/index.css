@@ -79,9 +79,20 @@ nav {
   display: flex;
   align-items: center;
 }
-nav a {
-  margin-left: 10px;
+.linksContainer {
+  display: flex;
+  align-items: center;
 }
+
+.linksContainer a {
+  margin-left: 20px;
+}
+
+.nav a, nav button {
+  margin-left: 20px;
+}
+
+
 /* auth forms */
 form.signup,
 form.login {

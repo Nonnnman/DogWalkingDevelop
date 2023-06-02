@@ -6,6 +6,10 @@ const Navbar = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
+  const isWalker = user && user.userType === "walker";
+  const isOwner = user && user.userType === "owner";
+
+
   const handleClick = () => {
     logout();
   };
@@ -14,8 +18,21 @@ const Navbar = () => {
     <header>
       <div className="container">
         <Link to="/">
-          <h1>H</h1>
+          <h1>Beans</h1>
         </Link>
+        <Link to="/list">
+          <h2>Dog Walker's List</h2>
+        </Link>
+        {isWalker && (
+        <div className="linksContainer">
+          <Link to={"/WalkerProfile/"+user.username}>
+            <h3>Profile</h3>
+          </Link>
+          <Link to={"/WalkerProfile/"+user.username+"/requests"}>
+            <h3>Requests</h3>
+          </Link>
+        </div>
+        )}
         <nav>
           {user && (
             <div>

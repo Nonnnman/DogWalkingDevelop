@@ -36,7 +36,9 @@ const BookingRequests = () => {
     navigate("/");
   }
 
-  if(!username ||  username !== user.username){
+  const isSameUser = username === user.username;
+
+  if(!isSameUser){
     navigate("/");
   }
 
@@ -105,10 +107,7 @@ const BookingRequests = () => {
     async function fetchData() {
       const response = await fetch(`/api/bookings/${username}`);
       const data = await response.json();
-      setBookings(data);
-
-      //call the filter function
-      //filterBookings();
+      setBookings(data.filter((booking) => booking.status !== "declined"));
     }
     fetchData();
   }, [username]);

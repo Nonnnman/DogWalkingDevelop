@@ -18,7 +18,7 @@ router.get("/all", getBookings);
 router.get("/:username", getUserBookings);
 
 //GET a single booking
-router.get("/:id", getBooking);
+router.get("/id/:id", getBooking);
 
 //POST a booking
 router.post("/", createBooking);

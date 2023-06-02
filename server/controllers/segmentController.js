@@ -27,10 +27,10 @@ const getSegment = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such segment" });
   }
-
+  
   const segment = await Segment.findById(id);
 
-  if (!booking) {
+  if (!segment) {
     return res.status(404).json({ error: "No such segment" });
   }
 
