@@ -2,25 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-function WalkerProfile() {
+function OwnerProfile() {
   const { username: usernameParam } = useParams();
   const [username, setUser] = useState(null);
   const [onGoingbookings, setBookings] = useState([]);
-  const [ratings, setRatings] = useState([]);
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bookings/${username}`);
+      const response = await fetch(`/api/bookings/owner/${username}`);
       const data = await response.json();
-      setBookings(data.filter((booking) => booking.status == "ongoing"));
+      setBookings(data.filter((booking) => booking.status == "ongoing" || booking.status == "expired"));
     }
     fetchData();
   }, [username]);
 
   useEffect(() => {
-    fetch(`/api/user/${usernameParam}`)
+    fetch(`/api/user/owner/${usernameParam}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -35,26 +34,16 @@ function WalkerProfile() {
       });
   }, [usernameParam, navigate]);
 
-  useEffect(() => {
-    async function fetchRatings() {
-      const response = await fetch(`/api/ratings/${username}`);
-      const data = await response.json();
-      setRatings(data);
-    }
-    fetchRatings();
-  }, [username]);
 
-  const notWalker = user.userType !== "walker";
+  const notOwner = user.userType !== "owner";
 
   const isSameUser = username === user.username;
-
 
   if (!user || !username) {
     return <div className="Loading">
         loading...
     </div>;
   }
-
 
   return (
     <div>
@@ -66,13 +55,6 @@ function WalkerProfile() {
 
       {isSameUser && (
         <div>
-          <button
-            onClick={() => {
-              navigate(`/WalkerProfile/${username}/edit`);
-            }}
-          >
-            Edit Profile
-          </button>
           <div className="ongoingContainer">
             <h3>Ongoing Bookings</h3>
             {onGoingbookings.map((booking) => (
@@ -91,27 +73,8 @@ function WalkerProfile() {
           </div>
         </div>
       )}
-      {notWalker && !isSameUser && (
-        <button
-          onClick={() => {
-            navigate(`/WalkerProfile/${username}/book`);
-          }}
-        >
-          Book
-        </button>
-      )}
-      <div className="ratingsContainer">
-        <h3>Ratings</h3>
-        {ratings.map((rating) => (
-          <div className="ratingBox" key={rating._id}>
-            <p>From: {rating.owner}</p>
-            <p>Rating: {rating.rating} / 5</p>
-            <p>Comment: {rating.comment}</p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
 
-export default WalkerProfile;
+export default OwnerProfile;

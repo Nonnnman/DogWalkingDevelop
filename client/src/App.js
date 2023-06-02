@@ -11,11 +11,14 @@ import Listing from "./pages/Listing";
 import Profile from "./pages/Profile";
 // imports the WalkerProfile page
 import WalkerProfile from "./pages/WalkerProfile";
+import OwnerProfile from "./pages/OwnerProfile";
 import BookWalker from "./pages/BookWalker";
 // import homepage
 import Home from "./pages/Home";
 // import Walk interval page
 import WalkInterval from "./pages/WalkInterval";
+//import walker walk page
+import Walk from "./pages/WalkPage";
 
 
 function App() {
@@ -46,8 +49,10 @@ function App() {
         <div className="pages">
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/WalkerProfile/:username" element={user?(<WalkerProfile />):(<Navigate to="/" />)} />
+            <Route path="/WalkerProfile/:username" element={<WalkerProfile />} />
+            <Route path="/OwnerProfile/:username" element={<OwnerProfile />} />
             <Route path="/list" element={<Listing />} />
+            <Route path="/walk/:id" element={user?(<Walk />):(<Navigate to="/" />)} />
             <Route path="/profile" element={user?(<Profile />):(<Navigate to="/" />)}/>
             <Route path="/WalkerProfile/:username/book" element={user?(<BookWalker />):(<Navigate to="/" />)} />
             <Route path="/WalkerProfile/:username/requests" element={user?(<BookingRequests />):(<Navigate to="/" />)} />

@@ -33,6 +33,13 @@ const Navbar = () => {
           </Link>
         </div>
         )}
+        {isOwner && (
+        <div className="linksContainer">
+          <Link to={"/OwnerProfile/"+user.username}>
+            <h3>Profile</h3>
+          </Link>
+        </div>
+        )}
         <nav>
           {user && (
             <div>

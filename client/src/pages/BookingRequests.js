@@ -131,6 +131,7 @@ const BookingRequests = () => {
                 <div className="bookingItem" key={booking._id}>
                   <p>{booking.owner}</p>
                   <p>{booking.status}</p>
+                  {booking.status === "requested" ? (
                   <button
                     onClick={() => {
                       acceptBooking(booking._id, booking.owner)
@@ -144,6 +145,8 @@ const BookingRequests = () => {
                         });
                     }}
                   >Accept</button>
+                  ): null }
+
                 </div>
 
                   ))}
@@ -151,16 +154,6 @@ const BookingRequests = () => {
 
           </div>
           ))}
-      </div>
-      <h2>Bookings</h2>
-      <div>
-      {bookings &&
-          bookings.map((item) => <div key={item._id}>
-            <h3>ITEM</h3>
-            <p>{item.owner}</p>
-            <p>{item._id}</p>
-            </div>
-            )}
       </div>
     </div>
   );

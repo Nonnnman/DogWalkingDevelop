@@ -6,6 +6,7 @@ const {
   deleteBooking,
   updateBooking,
   getUserBookings,
+  getOwnerBookings,
 } = require("../controllers/bookingController");
 
 const router = express.Router();
@@ -16,6 +17,9 @@ router.get("/all", getBookings);
 
 //GET user bookings
 router.get("/:username", getUserBookings);
+
+//GET user bookings
+router.get("/owner/:username", getOwnerBookings);
 
 //GET a single booking
 router.get("/id/:id", getBooking);
