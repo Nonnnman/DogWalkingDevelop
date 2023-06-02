@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import BookingRequests from "./pages/BookingRequests";
+import OwnerRequests from "./pages/OwnerRequests";
 import Listing from "./pages/Listing";
 import Profile from "./pages/Profile";
 // imports the WalkerProfile page
@@ -56,6 +57,7 @@ function App() {
             <Route path="/profile" element={user?(<Profile />):(<Navigate to="/" />)}/>
             <Route path="/WalkerProfile/:username/book" element={user?(<BookWalker />):(<Navigate to="/" />)} />
             <Route path="/WalkerProfile/:username/requests" element={user?(<BookingRequests />):(<Navigate to="/" />)} />
+            <Route path="/OwnerProfile/:username/requests" element={user?(<OwnerRequests />):(<Navigate to="/" />)} />
             <Route path="/login" element={!user?(<Login />):(<Navigate to="/" />)}/>
             <Route path="/signup" element={!user?(<Signup />):(<Navigate to="/" />)}/>
           </Routes>

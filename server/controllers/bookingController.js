@@ -20,11 +20,9 @@ const getUserBookings = async (req, res) => {
 // get specific user bookings
 const getOwnerBookings = async (req, res) => {
   const { username } = req.params;
-
-  console.log(username);
-
+  
   const bookings = await Booking.find({ owner : username }).sort({ createdAt: -1 });
-  console.log(bookings);
+
   res.status(200).json(bookings);
 };
 
@@ -51,7 +49,6 @@ const getBooking = async (req, res) => {
 const createBooking = async (req, res) => {
   const { owner, walker, seg_id, status } = req.body;
 
-  console.log("we are here");
 
   let emptyFields = [];
 

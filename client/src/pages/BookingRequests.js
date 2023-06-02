@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const BookingRequests = () => {
   const {username: usernameParam} = useParams();
 
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+
   const [bookings, setBookings] = useState([]);
   const [segments, setSegments] = useState([]);
   const [username, setUser] = useState(null);
@@ -115,14 +117,13 @@ const BookingRequests = () => {
 
   return (
     <div>
-      <h1>Booking Requests for {username}</h1>
+      <h1>Booking Requests from {username}</h1>
       <div className="segmentList">
           {segments.map((segment) => (
-          
+        
           // segment item
           <div className="segmentItem" key={segment._id}>
-            <p>{new Date(segment.start).toLocaleDateString()} -{" "}
-            {new Date(segment.end).toLocaleDateString()}</p>
+            <h3>{new Date(segment.start).toLocaleString('en-US', options)}</h3>
 
             <div className="bookingList">
               {bookings.filter((booking) => booking.seg_id === segment._id).map((booking) => (
@@ -148,6 +149,7 @@ const BookingRequests = () => {
                   ): null }
 
                 </div>
+                
 
                   ))}
             </div>

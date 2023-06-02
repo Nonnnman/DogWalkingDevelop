@@ -38,6 +38,9 @@ const Navbar = () => {
           <Link to={"/OwnerProfile/"+user.username}>
             <h3>Profile</h3>
           </Link>
+          <Link to={"/OwnerProfile/"+user.username+"/requests"}>
+            <h3>Requests</h3>
+          </Link>
         </div>
         )}
         <nav>
