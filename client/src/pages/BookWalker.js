@@ -10,6 +10,9 @@ function BookingPage() {
   const [ownerName, setOwnerName] = useState("");
   const navigate = useNavigate();
 
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+
+
   useEffect(() => {
     fetch(`/api/user/owner/${user.username}`)
       .then((response) =>{
@@ -27,7 +30,7 @@ function BookingPage() {
   useEffect(() => {
     fetch(`/api/segments/fromUser/${username}`)
       .then((response) => response.json())
-      .then((data) => setSegments(data));
+      .then((data) => setSegments(data.filter((s) => s.status !== "booked")));
   }, [username]);
 
   const handleSegmentClick = (segment) => {
@@ -35,7 +38,10 @@ function BookingPage() {
   };
 
   const handleBookingSubmit = () => {
-    if (!selectedSegment || !ownerName) {
+
+
+
+    if (!selectedSegment) {
       alert("Please select a segment and enter your name.");
       return;
     }
@@ -52,8 +58,13 @@ function BookingPage() {
     })
       .then((response) => {
         // no need to delete the segment after booking
-        /*if(response.ok){
-          fetch(`/api/segments/${selectedSegment._id}`, {
+
+        if(response.ok){
+
+          alert("Booking request sent to "+username);
+          navigate("/");
+
+        /*fetch(`/api/segments/${selectedSegment._id}`, {
             method: "DELETE",
           })
             .then((response) => {
@@ -68,8 +79,8 @@ function BookingPage() {
               
               return response.json()})
             .then((data) => console.log(data))
-            .catch((error) => console.error(error));
-        }*/
+            .catch((error) => console.error(error));*/
+        }
         return response.json() 
       
       })
@@ -91,12 +102,15 @@ function BookingPage() {
                 selectedSegment?._id === segment._id ? "lightblue" : "white",
             }}
           >
-            {new Date(segment.start).toLocaleDateString()} -{" "}
-            {new Date(segment.end).toLocaleDateString()}
+            {new Date(segment.start).toLocaleString('en-US', options)} -{" "}
+            {new Date(segment.start).toLocaleString('en-US', options)}
           </li>
         ))}
       </ul>
-      <button onClick={handleBookingSubmit}>Send Request</button>
+      <button 
+      //if there are no segments, disable the button
+      disabled={segments.length === 0}
+      onClick={handleBookingSubmit}>Send Request</button>
     </div>
   );
 }

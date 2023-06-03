@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { useSubmitSegment } from "../hooks/useSubmitSegment";
-import Cal from "./Cal";
-import { useAuthContext } from "../hooks/useAuthContext";
 
 const CreateSegment = () => {
   //temp user, remove when switching to global profiles
-  const { user } = useAuthContext();
-  const username = user.username;
 
   const [day, setDay] = useState("");
   const [start, setStart] = useState("");
@@ -15,28 +11,22 @@ const CreateSegment = () => {
   const { createSegment, isloading, error } = useSubmitSegment();
 
   const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+
+    console.log(new Date())
+
     const start_date = new Date(`${day}T${start}:00`);
 
     const end_date = new Date(`${day}T${end}:00`);
-
-    e.preventDefault();
 
     await createSegment(start_date, end_date);
   };
 
   return (
     <div>
-      <h1>Profile</h1>
-      <input 
-        type="number"
-        min="0" 
-        step="100" />
-        
-      <input 
-        type="text"
-        placeholder="start" />
 
-      <Cal username={username} />
       <form className="login" onSubmit={handleSubmit}>
         <h3>Submit a time segment</h3>
         <label>day:</label>
@@ -58,7 +48,7 @@ const CreateSegment = () => {
           value={end}
         />
 
-        <button disabled={isloading}>Log in</button>
+        <button disabled={isloading}>Add time segment</button>
         {error && <div className="error">{error}</div>}
       </form>
     </div>

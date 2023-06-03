@@ -85,17 +85,16 @@ const signUpUser = async (req, res) => {
   }
 };
 
-//signup user
 const updateUser = async (req, res) => {
-  const { id } = req.params;
+  const { username } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such user" });
-  }
-
-  const user = await User.findById(id);
-
-  res.status(200).json(user);
+  const user = await User.findOneAndUpdate(
+    { username },
+    {
+      ...req.body,
+    },
+    { new: true }
+  );
 
   if (!user) {
     return res.status(404).json({ error: "No such user" });
@@ -104,4 +103,14 @@ const updateUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-module.exports = { getUser, getUsers, signUpUser, loginUser,getOwner, getOwners, updateUser };
+
+
+module.exports = { 
+  getUser,
+  getUsers,
+  signUpUser,
+  loginUser,
+  getOwner,
+  getOwners,
+  updateUser,
+};

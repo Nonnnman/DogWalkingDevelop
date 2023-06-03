@@ -9,7 +9,6 @@ import Login from "./pages/Login";
 import BookingRequests from "./pages/BookingRequests";
 import OwnerRequests from "./pages/OwnerRequests";
 import Listing from "./pages/Listing";
-import Profile from "./pages/Profile";
 // imports the WalkerProfile page
 import WalkerProfile from "./pages/WalkerProfile";
 import OwnerProfile from "./pages/OwnerProfile";
@@ -20,6 +19,7 @@ import Home from "./pages/Home";
 import WalkInterval from "./pages/WalkInterval";
 //import walker walk page
 import Walk from "./pages/WalkPage";
+import EditWalker from "./pages/EditWalkerProfile";
 
 
 function App() {
@@ -51,10 +51,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/WalkerProfile/:username" element={<WalkerProfile />} />
+            <Route path="/WalkerProfile/:username/edit" element={<EditWalker />} />
             <Route path="/OwnerProfile/:username" element={<OwnerProfile />} />
             <Route path="/list" element={<Listing />} />
             <Route path="/walk/:id" element={user?(<Walk />):(<Navigate to="/" />)} />
-            <Route path="/profile" element={user?(<Profile />):(<Navigate to="/" />)}/>
             <Route path="/WalkerProfile/:username/book" element={user?(<BookWalker />):(<Navigate to="/" />)} />
             <Route path="/WalkerProfile/:username/requests" element={user?(<BookingRequests />):(<Navigate to="/" />)} />
             <Route path="/OwnerProfile/:username/requests" element={user?(<OwnerRequests />):(<Navigate to="/" />)} />

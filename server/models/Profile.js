@@ -22,6 +22,14 @@ const ProfileSchema = new Schema({
     type: Number,
     required: false,
   },
+  bio: {
+    type: String,
+    required: false,
+  },
+  price: {
+    type: Number,
+    required: false,
+  }
 });
 
 // static signup method

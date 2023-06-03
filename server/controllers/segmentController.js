@@ -39,7 +39,7 @@ const getSegment = async (req, res) => {
 
 // create new booking
 const createSegment = async (req, res) => {
-  const { start, end } = req.body;
+  const { start, end, status } = req.body;
 
   const { authorization } = req.headers;
 
@@ -55,7 +55,7 @@ const createSegment = async (req, res) => {
     const user = await User.findOne({ _id }).select("username");
     const username = user.username;
 
-    const segment = await Segment.create({ user: username, start, end });
+    const segment = await Segment.create({ user: username, start, end, status });
     res.status(200).json(segment);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -67,16 +67,38 @@ const deleteSegment = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such booking" });
+    return res.status(404).json({ error: "No such segment" });
   }
 
   const segment = await Segment.findOneAndDelete({ _id: id });
 
   if (!segment) {
-    return res.status(400).json({ error: "No such booking" });
+    return res.status(400).json({ error: "No such segment" });
   }
 
   res.status(200).json(segment);
 };
 
-module.exports = { getSegment, getSegments, getUserSegments, createSegment, deleteSegment };
+// update a workout
+const updateSegment = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such segment" });
+  }
+
+  const segment = await Segment.findOneAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
+    }
+  );
+
+  if (!segment) {
+    return res.status(400).json({ error: "No such segment" });
+  }
+
+  res.status(200).json(segment);
+};
+
+module.exports = { getSegment, getSegments, getUserSegments, createSegment, deleteSegment, updateSegment };

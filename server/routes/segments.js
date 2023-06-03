@@ -5,6 +5,7 @@ const {
   getUserSegments,
   createSegment,
   deleteSegment,
+  updateSegment,
 } = require("../controllers/segmentController");
 
 const router = express.Router();
@@ -20,6 +21,9 @@ router.get("/:id", getSegment);
 
 //POST a segment
 router.post("/", createSegment);
+
+//POST a segment
+router.patch("/:id", updateSegment);
 
 //DELETE a segment
 router.delete("/:id", deleteSegment);

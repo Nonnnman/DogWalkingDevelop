@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import Calendar from "../components/Calendar";
+import CreateSegment from "../components/CreateSegment";
+
 
 function WalkerProfile() {
   const { username: usernameParam } = useParams();
   const [username, setUser] = useState(null);
+  const [userObject, setUserObject] = useState(null);
+  const [avgRating, setAvgRating] = useState(null);
   const [onGoingbookings, setBookings] = useState([]);
   const [ratings, setRatings] = useState([]);
   const { user } = useAuthContext();
   const navigate = useNavigate();
+
+  function averageRating(ratings) {
+    let sum = 0;
+    for (let i = 0; i < ratings.length; i++) {
+      sum += ratings[i].rating;
+    }
+    setAvgRating(sum / ratings.length);
+  }
+
 
   useEffect(() => {
     async function fetchData() {
@@ -31,6 +45,7 @@ function WalkerProfile() {
       .then((data) => {
         if (data) {
           setUser(data.username);
+          setUserObject(data);
         }
       });
   }, [usernameParam, navigate]);
@@ -38,8 +53,12 @@ function WalkerProfile() {
   useEffect(() => {
     async function fetchRatings() {
       const response = await fetch(`/api/ratings/${username}`);
-      const data = await response.json();
-      setRatings(data);
+      if (response.ok) {
+        const data = await response.json();
+        setRatings(data);
+        averageRating(data)
+      }
+
     }
     fetchRatings();
   }, [username]);
@@ -58,11 +77,14 @@ function WalkerProfile() {
 
   return (
     <div>
-      <h2>
-        {isSameUser
-          ? `Welcome ${username}`
-          : `Welcome to ${username}'s profile`}
-      </h2>
+      <div className="profileContainer">
+      <h2>{username}</h2>
+        <div className="profileInfo">
+          <p>Rating: {avgRating? avgRating : "No ratings yet"}</p>
+          <p>Price per walk: {userObject.price? userObject.price : "No Price yet"}</p>
+          <p>Bio: {userObject.bio ? userObject.bio : "No bio yet"}</p>
+        </div>
+      </div>
 
       {isSameUser && (
         <div>
@@ -100,6 +122,10 @@ function WalkerProfile() {
           Book
         </button>
       )}
+      <div className="temporal">
+        <Calendar username={username} />
+        <CreateSegment />
+      </div>
       <div className="ratingsContainer">
         <h3>Ratings</h3>
         {ratings.map((rating) => (

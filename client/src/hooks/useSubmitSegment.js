@@ -11,13 +11,24 @@ export const useSubmitSegment = () => {
     setIsLoading(true);
     setError(null);
 
+    if (start_date > end_date) {
+      setError("Start time must be before end time");
+      return;
+    }
+    
+    //can only make segments in the future
+    if (start_date < new Date()) {
+      setError("Can't make segments in the past");
+      return;
+    }
+
     const response = await fetch("/api/segments/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({ start: start_date, end: end_date }),
+      body: JSON.stringify({ start: start_date, end: end_date, status: "free" }),
     });
     const json = await response.json();
 
@@ -26,6 +37,7 @@ export const useSubmitSegment = () => {
       setError(json.error);
     }
     if (response.ok) {
+      alert("Segment created");
       setIsLoading(false);
     }
   };

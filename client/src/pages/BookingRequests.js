@@ -44,11 +44,6 @@ const BookingRequests = () => {
     navigate("/");
   }
 
-  //filter out all bookings with status "declined"
-  const filterBookings = () => {
-    setBookings(bookings.filter((booking) => booking.status !== "declined"));
-  }
-
 
   //decline booking
   const declineBooking = (booking_id, owner) => {
@@ -74,7 +69,11 @@ const BookingRequests = () => {
 
 
   //accept booking
-  const acceptBooking = (booking_id, owner) => {
+  const acceptBooking = (booking_id, segment_id, owner) => {
+
+    //reload page
+    window.location.reload();
+
     //print "accepted for "+owner
     alert("accepted for "+owner);
 
@@ -96,6 +95,18 @@ const BookingRequests = () => {
         return response.json()})
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
+
+      //set status of segment to "booked"
+      fetch(`/api/segments/${segment_id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: "booked",
+        }),
+      })
+  
   }
 
 
@@ -135,7 +146,7 @@ const BookingRequests = () => {
                   {booking.status === "requested" ? (
                   <button
                     onClick={() => {
-                      acceptBooking(booking._id, booking.owner)
+                      acceptBooking(booking._id, booking.seg_id, booking.owner)
                       //decline every other booking with the same segment_id
                       //takes in a list of every other booking with the same segment_id
                       const otherBookings = bookings.filter(

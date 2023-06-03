@@ -31,7 +31,7 @@ router.post("/login", loginUser);
 // signup
 router.post("/signup", signUpUser);
 
-// UPDATE a booking
-router.patch("/:id", updateUser);
+// add info to user
+router.put("/:username", updateUser);
 
 module.exports = router;
