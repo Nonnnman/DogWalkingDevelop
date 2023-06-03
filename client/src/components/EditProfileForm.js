@@ -9,7 +9,7 @@ const EditForm = (username) => {
   const navigate = useNavigate();
 
 
-  const handleEditProfile = async (e) => {
+  const handleEditPrice = async (e) => {
     e.preventDefault();
 
     await fetch(`/api/user/${username.username}`, {
@@ -17,7 +17,26 @@ const EditForm = (username) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ price, bio }),
+      body: JSON.stringify({ price }),
+    }).then((response) => {
+      if (response.ok) {
+        alert("Profile updated");
+        navigate(`/WalkerProfile/${username.username}`);
+      }
+    }
+    );
+
+  };
+
+  const handleEditBio = async (e) => {
+    e.preventDefault();
+
+    await fetch(`/api/user/${username.username}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ bio }),
     }).then((response) => {
       if (response.ok) {
         alert("Profile updated");
@@ -30,25 +49,31 @@ const EditForm = (username) => {
 
   return (
     <div>
-
-      <form className="login" onSubmit={handleEditProfile}>
       <h3>Edit Profile</h3>
-      <label>What do you charge per walk ?</label>
-      <input 
-        type="number"
-        min="300" 
-        step="100"
-        onChange={(e) => setPrice(e.target.value)}
-        />
-        <label>Tell us about yourself</label>
-        <textarea className="bioField"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
-        <br/>
+      <div className="editProfileBox">
+        <form className="priceForm" onSubmit={handleEditPrice}>
+        <label>What do you charge per walk ?</label>
+        <input 
+          type="number"
+          min="300" 
+          step="100"
+          onChange={(e) => setPrice(e.target.value)}
+          />
+          <br/>
+          <button >Submit</button>
+          </form>
 
-        <button >Submit</button>
-      </form>
+          <form className="bioForm" onSubmit={handleEditBio}>
+          <label>Tell us about yourself</label>
+          <textarea className="bioField"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
+          <br/>
+          <button >Submit</button>
+          </form>
+      </div>
+
 
       </div>
   );
