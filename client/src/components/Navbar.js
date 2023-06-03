@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import logo from '../media/pawprint.png';
+import '../styles/navbar.css';
+
+
 
 const Navbar = () => {
   const { logout } = useLogout();
@@ -14,51 +18,51 @@ const Navbar = () => {
     logout();
   };
 
-  return (
-    <header>
-      <div className="container">
-        <Link to="/">
-          <h1>Beans</h1>
-        </Link>
-        <Link to="/list">
-          <h2>Dog Walker's List</h2>
-        </Link>
-        {isWalker && (
-        <div className="linksContainer">
-          <Link to={"/WalkerProfile/"+user.username}>
-            <h3>Profile</h3>
-          </Link>
-          <Link to={"/WalkerProfile/"+user.username+"/requests"}>
-            <h3>Requests</h3>
-          </Link>
-        </div>
-        )}
-        {isOwner && (
-        <div className="linksContainer">
-          <Link to={"/OwnerProfile/"+user.username}>
-            <h3>Profile</h3>
-          </Link>
-          <Link to={"/OwnerProfile/"+user.username+"/requests"}>
-            <h3>Requests</h3>
-          </Link>
-        </div>
-        )}
-        <nav>
-          {user && (
-            <div>
-              <span>{user.username}</span>
-              <button onClick={handleClick}>Log out</button>
-            </div>
-          )}
-          {!user && (
-            <div>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </div>
-          )}
-        </nav>
-      </div>
-    </header>
+	return (
+		<header>
+			<div className="container">
+				<Link to="/">
+					<img src={logo} alt="Beans Logo" className="logo" />
+				</Link>
+				<Link to="/list">
+					<h2>Create</h2>
+				</Link>
+				{isWalker && (
+					<div className="linksContainer">
+						<Link to={"/WalkerProfile/"+user.username}>
+							<h3>Profile</h3>
+						</Link>
+						<Link to={"/WalkerProfile/"+user.username+"/requests"}>
+							<h3>Requests</h3>
+						</Link>
+					</div>
+				)}
+				{isOwner && (
+					<div className="linksContainer">
+						<Link to={"/OwnerProfile/"+user.username}>
+							<h3>Profile</h3>
+						</Link>
+						<Link to={"/OwnerProfile/"+user.username+"/requests"}>
+							<h3>Requests</h3>
+						</Link>
+					</div>
+				)}
+				<nav>
+					{user && (
+						<div>
+							<span>{user.username}</span>
+							<button onClick={handleClick}>Log out</button>
+						</div>
+					)}
+					{!user && (
+						<div>
+							<Link to="/login">Login</Link>
+							<Link to="/signup">Signup</Link>
+						</div>
+					)}
+				</nav>
+			</div>
+     </header>
   );
 };
 
