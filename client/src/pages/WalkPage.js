@@ -11,6 +11,9 @@ const WalkPage = () => {
   const Navigate = useNavigate();
 
   const [rating, setRating] = useState(1);
+  
+  const [ratings, setRatings] = useState([]);
+
   const [comment, setComment] = useState("");
 
   if (!user) {
@@ -19,12 +22,45 @@ const WalkPage = () => {
 
   const isOwner = user.userType === "owner";
 
+  //calculates new average rating after adding the new rating
+  const avgRating = () => {
+
+    let sum = rating;
+
+    for (let i = 0; i < ratings.length; i++) {
+      sum += ratings[i].rating;
+    }
+
+    console.log("new rating "+rating)
+    console.log("sum "+sum)
+    console.log("old length "+ratings.length)
+
+    //new rating
+    console.log("new "+sum / (ratings.length+1))
+
+    return sum / (ratings.length+1);
+
+  };
+  
+
+  //fetch ratings of walker
+  const fetchRatings = async () => {
+    const response = await fetch(`/api/ratings/${booking.walker}`);
+    if (response.ok) {
+      console.log("we got there")
+      const data = await response.json();
+      setRatings(data);
+    }
+  };
+
   
   const fetchBooking = async () => {
     const response = await fetch(`/api/bookings/id/${id}`);
     const data = await response.json();
     setBooking(data);
   };
+
+  
 
   const fetchSegment = async () => {
     const response = await fetch(`/api/segments/${booking.seg_id}`);
@@ -44,6 +80,7 @@ const WalkPage = () => {
   useEffect(() => {
     if (booking) {
       fetchSegment();
+      fetchRatings();
     }
   }, [booking]);
 
@@ -84,8 +121,23 @@ const WalkPage = () => {
       });
 
       if (postRatingResponse.ok) {
-        alert("Thank you for rating your experience!");
-        Navigate("/");
+        
+        await fetch(`/api/user/${booking.walker}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ rating : avgRating() }),
+        }).then((response) => {
+          if (response.ok) {
+
+            alert("Thank you for rating your experience!");
+            Navigate("/");
+
+          }
+        }
+        );
+
       }
     }
   };

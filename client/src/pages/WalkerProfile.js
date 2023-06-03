@@ -9,19 +9,11 @@ function WalkerProfile() {
   const { username: usernameParam } = useParams();
   const [username, setUser] = useState(null);
   const [userObject, setUserObject] = useState(null);
-  const [avgRating, setAvgRating] = useState(null);
   const [onGoingbookings, setBookings] = useState([]);
   const [ratings, setRatings] = useState([]);
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  function averageRating(ratings) {
-    let sum = 0;
-    for (let i = 0; i < ratings.length; i++) {
-      sum += ratings[i].rating;
-    }
-    setAvgRating(sum / ratings.length);
-  }
 
 
   useEffect(() => {
@@ -56,7 +48,6 @@ function WalkerProfile() {
       if (response.ok) {
         const data = await response.json();
         setRatings(data);
-        averageRating(data)
       }
 
     }
@@ -80,7 +71,7 @@ function WalkerProfile() {
       <div className="profileContainer">
       <h2>{username}</h2>
         <div className="profileInfo">
-          <p>Rating: {avgRating? avgRating : "No ratings yet"}</p>
+          <p>Rating: {userObject.rating? userObject.rating : "No ratings yet"}</p>
           <p>Price per walk: {userObject.price? userObject.price : "No Price yet"}</p>
           <p>Bio: {userObject.bio ? userObject.bio : "No bio yet"}</p>
         </div>
@@ -124,7 +115,10 @@ function WalkerProfile() {
       )}
       <div className="temporal">
         <Calendar username={username} />
+        {isSameUser &&(
         <CreateSegment />
+        )
+        }
       </div>
       <div className="ratingsContainer">
         <h3>Ratings</h3>
