@@ -151,6 +151,9 @@ const BookingRequests = () => {
                   <div className="infoItem">
                     <p>{booking.status}</p>
                   </div>
+                  <div className="infoItem">
+                    <p>{booking.address}</p>
+                  </div>
                   {booking.status === "requested" ? (
                   <button
                     onClick={() => {
