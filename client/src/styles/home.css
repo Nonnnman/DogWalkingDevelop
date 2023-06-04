@@ -1,18 +1,19 @@
 
-main {
-	padding: 20px;
-}
-
 .hero {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0px;
+    position: fixed;
+    bottom: 0;
+    padding: 20px;
+    width: 100%;
+    background-color: wheat;
 }
 
 .hero img {
-	max-width: 100%;
+	width: 100%;
 	height: auto;
 	margin-bottom: 20px;
 }

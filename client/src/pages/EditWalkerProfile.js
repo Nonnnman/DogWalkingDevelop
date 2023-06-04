@@ -1,5 +1,6 @@
 import EditProfileForm from "../components/EditProfileForm";
 import { useParams } from "react-router-dom";
+import "../styles/editProfile.css";
 
 
 const EditWalkerProfile = () => {
@@ -8,7 +9,6 @@ const EditWalkerProfile = () => {
 
     return (
         <div>
-            <h1>Edit your profile</h1>
             <EditProfileForm username={username} />
         </div>
     )

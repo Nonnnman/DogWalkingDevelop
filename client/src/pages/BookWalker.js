@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import timePic from '../media/clock.png';
+import '../styles/booking.css';
 
 function BookingPage() {
   const { username } = useParams();
@@ -89,30 +91,38 @@ function BookingPage() {
   };
 
   return (
-    <div>
-      <h1>Book {username} !</h1>
-      <h2>Please choose your preferred time</h2>
-      <ul>
-        {segments.map((segment) => (
-          <li
-            key={segment._id}
-            onClick={() => handleSegmentClick(segment)}
-            style={{
-              backgroundColor:
-                selectedSegment?._id === segment._id ? "lightblue" : "white",
-            }}
-          >
-            {new Date(segment.start).toLocaleString('en-US', options)} -{" "}
-            {new Date(segment.start).toLocaleString('en-US', options)}
-          </li>
-        ))}
-      </ul>
-      <button 
-      //if there are no segments, disable the button
-      disabled={segments.length === 0}
-      onClick={handleBookingSubmit}>Send Request</button>
+    <div className="pageContainer">
+      <div className="bookingContainer">
+        <h2>Book {username} !</h2>
+        <h3>Please choose your preferred time</h3>
+        <ul className="segmentList">
+          {segments.map((segment) => (
+            <li
+              key={segment._id}
+              onClick={() => handleSegmentClick(segment)}
+              className="segmentItem"
+              style={{
+                backgroundColor:
+                  selectedSegment?._id === segment._id ? "#add8e6" : null,
+              }}
+            >
+              <img src={timePic} alt="Time icon" className="timeIcon"/>
+              {new Date(segment.start).toLocaleString('en-US', options)} -{" "}
+              {new Date(segment.start).toLocaleString('en-US', options)}
+            </li>
+          ))}
+        </ul>
+        <button 
+        //if there are no segments, disable the button
+        disabled={segments.length === 0}
+        onClick={handleBookingSubmit}
+        className="requestButton"
+        >
+          Send Request
+        </button>
+      </div>
     </div>
   );
 }
 
-export default BookingPage;
+export default BookingPage; 

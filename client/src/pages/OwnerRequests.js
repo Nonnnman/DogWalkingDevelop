@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import {  useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "../styles/ownerRequests.css";
 
 const BookingRequests = () => {
     const {username: usernameParam} = useParams();
@@ -63,8 +64,8 @@ const BookingRequests = () => {
   
   
     return (
-      <div>
-        <h1>Booking Requests for {username}</h1>
+      <div className="pageContainer">
+        <h2>Booking Requests for {username}</h2>
         <div className="bookingList">
             {bookings.map((booking) => (
                 // booking item

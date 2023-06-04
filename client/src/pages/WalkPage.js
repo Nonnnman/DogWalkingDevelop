@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import "../styles/walk.css";
+import walking from "../media/dog-walking.png";
 
 const WalkPage = () => {
   const { id } = useParams();
@@ -15,6 +17,9 @@ const WalkPage = () => {
   const [ratings, setRatings] = useState([]);
 
   const [comment, setComment] = useState("");
+
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+
 
   if (!user) {
     Navigate("/");
@@ -149,89 +154,106 @@ const WalkPage = () => {
 
 
   return (
-    <div>
-      <h1>Walker Walk Page</h1>
-      <p>Owner: {booking.owner}</p>
-      <p>Walker: {booking.walker}</p>
-      <p>Status: {booking.status}</p>
-      <p>Start date: {segment.start}</p>
-      <p>End date: {segment.end}</p>
+    <div className="pageContainer">
+      <div className="header">
+        <img src={walking} alt="Beans logo" />
+      </div>
+      <div className="walkContainer">
+        <h2>Walk Details</h2>
+        <div className="walkInfo">
+          <div className="infoItem">
+            <p>Owner: {booking.owner}</p>
+          </div>
+          <div className="infoItem">
+            <p>Walker: {booking.walker}</p>
+          </div>
+          <div className="infoItem">
+            <p>Status: {booking.status}</p>
+          </div>
+          <div className="infoItem">
+            <p>Start date: {new Date(segment.start).toLocaleString('en-US', options)}</p>
+          </div>
+          <div className="infoItem">
+            <p>End date: {new Date(segment.end).toLocaleString('en-US', options)}</p>
+          </div>
+        </div>
 
-      {booking.status === "ongoing" ? (
-        <>
-          <p>Walk ongoing</p>
-        </>
-      ) : (
-        <p>Walk expired</p>
-      )}
+        {booking.status === "ongoing" ? (
+          <>
+            <p>Walk ongoing</p>
+          </>
+        ) : (
+          <p>Walk expired</p>
+        )}
 
-      {!isOwner && booking.status === "ongoing" && (
-        <button onClick={handleEndWalk}>End walk</button>
-      )}
+        {!isOwner && booking.status === "ongoing" && (
+          <button onClick={handleEndWalk} className="endButton">End walk</button>
+        )}
 
-      {isOwner && booking.status === "expired" && (
-        <div>
-          <h2>Rate your experience</h2>
-          <form onSubmit={handleSubmitRating}>
-            <div className="rating">
-            Rating:
-              <label>
-                1
-                <input
-                  type="radio"
-                  name="rating"
-                  value="1"
-                  checked={rating === 1}
-                  onChange={(e) => setRating(parseInt(e.target.value))}
-                />
-                2
-                <input
-                  type="radio"
-                  name="rating"
-                  value="2"
-                  checked={rating === 2}
-                  onChange={(e) => setRating(parseInt(e.target.value))}
-                />
-                3
-                <input
-                  type="radio"
-                  name="rating"
-                  value="3"
-                  checked={rating === 3}
-                  onChange={(e) => setRating(parseInt(e.target.value))}
-                />
-                4
-                <input
-                  type="radio"
-                  name="rating"
-                  value="4"
-                  checked={rating === 4}
-                  onChange={(e) => setRating(parseInt(e.target.value))}
-                />
-                5
-                <input
-                  type="radio"
-                  name="rating"
-                  value="5"
-                  checked={rating === 5}
-                  onChange={(e) => setRating(parseInt(e.target.value))}
-                />
+        {isOwner && booking.status === "expired" && (
+          <div className="ratingContainer">
+            <h2>Rate your experience</h2>
+            <form onSubmit={handleSubmitRating}>
+              <div className="rating">
+              Rating:
+                <label>1 </label>
+
+                  <input
+                    type="radio"
+                    name="rating"
+                    value="1"
+                    checked={rating === 1}
+                    onChange={(e) => setRating(parseInt(e.target.value))}
+                  />
+                  <label>2 </label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    value="2"
+                    checked={rating === 2}
+                    onChange={(e) => setRating(parseInt(e.target.value))}
+                  />
+                  <label>3 </label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    value="3"
+                    checked={rating === 3}
+                    onChange={(e) => setRating(parseInt(e.target.value))}
+                  />
+                  <label>4 </label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    value="4"
+                    checked={rating === 4}
+                    onChange={(e) => setRating(parseInt(e.target.value))}
+                  />
+                  <label>5 </label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    value="5"
+                    checked={rating === 5}
+                    onChange={(e) => setRating(parseInt(e.target.value))}
+                  />
+                  
                 
-              </label>
+              </div>
               <br />
               <label>
-                Comment:
-                <textarea
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                />
-              </label>
-            </div>
-            <br />
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-      )}
+                  Comment:
+                  <textarea
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                </label>
+              <br />
+              <button type="submit" className="submitButton">Submit</button>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

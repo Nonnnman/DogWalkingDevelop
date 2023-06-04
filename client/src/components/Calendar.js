@@ -34,7 +34,6 @@ const Cal = (username) => {
 
   return (
       <div className="calendar_container">
-        <h3>{username.username}'s Schedule</h3>
         <Calendar
           localizer={localizer}
           events={events}
@@ -47,7 +46,7 @@ const Cal = (username) => {
             month: true,
             agenda: true,
           }}
-          style={{ width: 1400, height: 600 }}
+          style={{ width: 800, height: 400 }}
           //components={{
           //  toolbar: () => null,
           //}}

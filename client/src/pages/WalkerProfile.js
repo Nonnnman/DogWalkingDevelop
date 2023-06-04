@@ -3,6 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Calendar from "../components/Calendar";
 import CreateSegment from "../components/CreateSegment";
+import "../styles/profiles.css";
+import profilePic from "../media/grinning.png";
+import pricePic from "../media/price-tag.png";
+import bioPic from "../media/profile.png";
+import calPic from "../media/calendar.png";
+import starPic from "../media/star.png";
 
 
 function WalkerProfile() {
@@ -67,71 +73,82 @@ function WalkerProfile() {
 
 
   return (
-    <div>
-      <div className="profileContainer">
-      <h2>{username}</h2>
-        <div className="profileInfo">
-          <p>Rating: {userObject.rating? userObject.rating : "No ratings yet"}</p>
-          <p>Price per walk: {userObject.price? userObject.price : "No Price yet"}</p>
-          <p>Bio: {userObject.bio ? userObject.bio : "No bio yet"}</p>
-        </div>
-      </div>
+		<div className="pageContainer">
+			<div className="profileContainer">
+				<img src={profilePic} alt="Profile picture" className="profilePic"/>
+				<h2>{username}</h2>
+				<p className="rating">Rating: {userObject.rating ? userObject.rating : "No ratings yet"}</p>
+				<div className="profileInfo">
+					<div className="infoItem">
+						<img src={pricePic} alt="Price icon" className="infoIcon"/>
+						<p>Price per walk: {userObject.price ? userObject.price : "No Price yet"}</p>
+					</div>
+					<div className="infoItem">
+						<img src={bioPic} alt="Bio icon" className="infoIcon"/>
+						<p>Bio: {userObject.bio ? userObject.bio : "No bio yet"}</p>
+					</div>
+				</div>
+			</div>
 
-      {isSameUser && (
-        <div>
-          <button
-            onClick={() => {
-              navigate(`/WalkerProfile/${username}/edit`);
-            }}
-          >
-            Edit Profile
-          </button>
-          <div className="ongoingContainer">
-            <h3>Ongoing Bookings</h3>
-            {onGoingbookings.map((booking) => (
-              <div className="ongoingBooking" key={booking._id}>
-                <p>{booking.owner}</p>
-                <p>{booking.status}</p>
-                <button
-                  onClick={() => {
-                    navigate(`/walk/${booking._id}`);
-                  }}
-                >
-                  Go to Walk page!
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      {notWalker && !isSameUser && (
-        <button
-          onClick={() => {
-            navigate(`/WalkerProfile/${username}/book`);
-          }}
-        >
-          Book
-        </button>
-      )}
-      <div className="temporal">
-        <Calendar username={username} />
-        {isSameUser &&(
-        <CreateSegment />
-        )
-        }
-      </div>
-      <div className="ratingsContainer">
-        <h3>Ratings</h3>
-        {ratings.map((rating) => (
-          <div className="ratingBox" key={rating._id}>
-            <p>From: {rating.owner}</p>
-            <p>Rating: {rating.rating} / 5</p>
-            <p>Comment: {rating.comment}</p>
-          </div>
-        ))}
-      </div>
+			{isSameUser && (
+				<>
+					<button
+						onClick={() => {
+							navigate(`/WalkerProfile/${username}/edit`);
+						}}
+					>
+						Edit Profile
+					</button>
+					<div className="ongoingContainer">
+						<h3>Ongoing Bookings</h3>
+						{onGoingbookings.map((booking) => (
+							<div className="ongoingBooking" key={booking._id}>
+								<p>{booking.owner}</p>
+								<p>{booking.status}</p>
+								<button
+									onClick={() => {
+										navigate(`/walk/${booking._id}`);
+									}}
+								>
+									Go to Walk page!
+								</button>
+						 </div>
+					 ))}
+				 </div>
+			 </>
+		 )}
+		 {notWalker && !isSameUser && (
+			 <button
+				 onClick={() => {
+					 navigate(`/WalkerProfile/${username}/book`);
+				 }}
+			 >
+				 Book
+			 </button>
+		 )}
+		 <div className="temporal">
+			<div className="calContainer">
+				<img src={calPic} alt="Calendar icon" className="calendarIcon"/>
+				<h3>{username}'s Schedule</h3>
+				<Calendar username={username} />
+			</div>
+			 {isSameUser && <CreateSegment />}
+		 </div>
+		 <div className="ratingsContainer">
+			 <h3>Ratings</h3>
+			 {ratings.map((rating) => (
+				 <div className="ratingBox" key={rating._id}>
+					 <div>
+						<p>{rating.rating}</p>
+						<img src={starPic} alt="Star icon" className="logo"/>
+					 </div>
+					 <p>{rating.comment}</p>
+					 <h4>- {rating.owner}</h4>
+				 </div>
+			 ))}
+		 </div>
     </div>
-  );
+  ); 
 }
 
 export default WalkerProfile;

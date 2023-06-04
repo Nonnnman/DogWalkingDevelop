@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import "../styles/ownerProfile.css";
+import ownerPic from "../media/naughty.png";
 
 function OwnerProfile() {
   const { username: usernameParam } = useParams();
@@ -46,33 +48,32 @@ function OwnerProfile() {
   }
 
   return (
-    <div>
-      <h2>
-        {isSameUser
-          ? `Welcome ${username}`
-          : `Welcome to ${username}'s profile`}
-      </h2>
+    <div className="pageContainer">
+      <div className="ownerProfileContainer">
+      <img src={ownerPic} alt="Owner profile picture" className="ownerPicture"/>
+        <h2>{username}</h2>
 
-      {isSameUser && (
-        <div>
-          <div className="ongoingContainer">
-            <h3>Ongoing Bookings</h3>
-            {onGoingbookings.map((booking) => (
-              <div className="ongoingBooking" key={booking._id}>
-                <p>{booking.owner}</p>
-                <p>{booking.status}</p>
-                <button
-                  onClick={() => {
-                    navigate(`/walk/${booking._id}`);
-                  }}
-                >
-                  Go to Walk page!
-                </button>
-              </div>
-            ))}
+        {isSameUser && (
+          <div>
+            <div className="ongoingContainer">
+              <h3>Ongoing Bookings</h3>
+              {onGoingbookings.map((booking) => (
+                <div className="ongoingBooking" key={booking._id}>
+                  <p>{booking.owner}</p>
+                  <p>{booking.status}</p>
+                  <button
+                    onClick={() => {
+                      navigate(`/walk/${booking._id}`);
+                    }}
+                  >
+                    Go to Walk page!
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

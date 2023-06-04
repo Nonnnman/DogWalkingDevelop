@@ -1,0 +1,80 @@
+
+  
+  .bookingContainer {
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+  }
+  
+  .segmentList {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+  }
+  
+  .segmentItem {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   margin-top: 10px;
+   border: solid #add8e6
+  2px; 
+   border-radius:
+  10px; 
+   padding:
+  10px; 
+   width:
+  80%; 
+  }
+  
+  .segmentItem:hover {
+   cursor: pointer; 
+  }
+  
+  .timeIcon {
+   width:
+  50px; 
+   height:
+  50px; 
+   margin-right:
+  10px; 
+  }
+  
+  .requestButton {
+   background-color:
+  #add8e6; 
+   border:
+  none; 
+   padding:
+  10px; 
+   margin-top:
+  20px; 
+   border-radius:
+  10px; 
+   display:
+  flex; 
+   flex-direction:
+  row; 
+   align-items:
+  center; 
+   justify-content:
+  center; 
+  }
+  
+  .requestButton:hover {
+   transform: scale(1.1);
+  }
+  
+  .requestIcon {
+   width:
+  50px; 
+   height:
+  50px; 
+   margin-right:
+  10px; 
+  }
+  

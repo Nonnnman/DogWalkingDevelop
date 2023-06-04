@@ -1,0 +1,87 @@
+.pageContainer {
+    background-color: #f0f8ff;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+    justify-content: flex-start;
+  }
+
+  .sort {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+    justify-content: flex-end;
+  }
+  
+  .listingContainer {
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    width: 800px;
+  }
+  
+  .filterContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #priceFilter {
+    width: 100px;
+  }
+  
+  .userContainer {
+   margin-top: 10px;
+  }
+  
+  .listItemButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: wheat;
+    color: black;
+  }
+  
+  .listItemButton:hover {
+   text-decoration: none;
+   background-color: beige;
+  }
+  
+  .userInfo {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+  }
+  
+  .infoItem {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-left: 10px;
+  }
+  
+  .infoIcon {
+   width: 50px;
+   height: 50px;
+  }

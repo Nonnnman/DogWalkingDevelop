@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ownerPic from "../media/naughty.png";
+import "../styles/bookingRequests.css";
 
 const BookingRequests = () => {
   const {username: usernameParam} = useParams();
@@ -127,9 +129,10 @@ const BookingRequests = () => {
 
 
   return (
-    <div>
-      <h1>Booking Requests from {username}</h1>
-      <div className="segmentList">
+    <div className="pageContainer">
+      <div className="bookingContainer">
+        <h2>Booking Requests from {username}</h2>
+        <div className="segmentList">
           {segments.map((segment) => (
         
           // segment item
@@ -141,8 +144,13 @@ const BookingRequests = () => {
 
                 // booking item
                 <div className="bookingItem" key={booking._id}>
-                  <p>{booking.owner}</p>
-                  <p>{booking.status}</p>
+                  <div className="infoItem">
+                    <img src={ownerPic} alt="Owner icon" className="infoIcon"/>
+                    <p>{booking.owner}</p>
+                  </div>
+                  <div className="infoItem">
+                    <p>{booking.status}</p>
+                  </div>
                   {booking.status === "requested" ? (
                   <button
                     onClick={() => {
@@ -156,6 +164,7 @@ const BookingRequests = () => {
                           declineBooking(otherBooking._id, otherBooking.owner);
                         });
                     }}
+                    className="acceptButton"
                   >Accept</button>
                   ): null }
 
@@ -167,6 +176,7 @@ const BookingRequests = () => {
 
           </div>
           ))}
+        </div>
       </div>
     </div>
   );

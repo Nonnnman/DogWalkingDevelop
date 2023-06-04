@@ -1,0 +1,69 @@
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+.editProfileContainer {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ padding-top: 100px;
+}
+
+.editProfileBox {
+ border-radius: 10px;
+ margin: 20px;
+ padding: 20px;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around;
+}
+
+.priceForm {
+    display: flex;
+    margin: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bioForm {
+    display: flex;
+    margin: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.editProfileBox input {
+ margin-top: 20px;
+ border-radius: 10px;
+ border: none;
+ width: 200px;
+}
+
+.editProfileBox input:hover {
+ box-shadow: inset 0px 0px 5px #add8e6; 
+}
+
+.editProfileBox textarea {
+ margin-top: 20px;
+ border-radius: 10px;
+ border: none;
+ 
+ width: 500px;
+ height: 100px;
+}
+
+.editProfileBox textarea:hover {
+ box-shadow: inset 0px 0px 5px #add8e6; 
+}
+
+.editProfileBox button:hover {
+ transform: scale(1.1);
+}

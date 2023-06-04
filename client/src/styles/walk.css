@@ -1,0 +1,91 @@
+.pageContainer {
+    background-color: #f0f8ff;
+    height: 100vw;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .walkContainer {
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .walkInfo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .infoItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .infoIcon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .endButton {
+    background-color: #add8e6;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+  
+  .endButton:hover {
+    transform: scale(1.1);
+  }
+  
+  .ratingContainer {
+    border-top: solid #add8e6
+  2px; 
+   padding-top:
+  10px; 
+  }
+  
+  .submitButton {
+    background-color: #add8e6;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+  
+  .submitButton:hover {
+   transform: scale(1.1);
+  }
+
+  .rating {
+    color : black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

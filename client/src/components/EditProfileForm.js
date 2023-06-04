@@ -48,19 +48,20 @@ const EditForm = (username) => {
   };
 
   return (
-    <div>
-      <h3>Edit Profile</h3>
-      <div className="editProfileBox">
-        <form className="priceForm" onSubmit={handleEditPrice}>
-        <label>What do you charge per walk ?</label>
-        <input 
-          type="number"
-          min="300" 
-          step="100"
-          onChange={(e) => setPrice(e.target.value)}
-          />
-          <br/>
-          <button >Submit</button>
+    <div className="pageContainer">
+      <div className="editProfileContainer">
+        <h2>Edit your profile</h2>
+        <div className="editProfileBox">
+          <form className="priceForm" onSubmit={handleEditPrice}>
+          <label>What do you charge per walk ?</label>
+          <input 
+            type="number"
+            min="300" 
+            step="100"
+            onChange={(e) => setPrice(e.target.value)}
+            />
+            <br/>
+            <button >Submit</button>
           </form>
 
           <form className="bioForm" onSubmit={handleEditBio}>
@@ -72,10 +73,9 @@ const EditForm = (username) => {
           <br/>
           <button >Submit</button>
           </form>
+        </div>
       </div>
-
-
-      </div>
+    </div>
   );
 };
 
