@@ -81,7 +81,7 @@ const BookingRequests = () => {
                   );
                 }
                 })}
-                <p>Walker : {booking.owner}</p>
+                <p>Walker : {booking.walker}</p>
                 <p>Status : {booking.status}</p>  
             </div>
   
