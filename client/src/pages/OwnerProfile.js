@@ -37,11 +37,11 @@ function OwnerProfile() {
   }, [usernameParam, navigate]);
 
 
-  const notOwner = user.userType !== "owner";
+  const notOwner = user && user.userType !== "owner";
 
-  const isSameUser = username === user.username;
+  const isSameUser = user && username === user.username;
 
-  if (!user || !username) {
+  if (!username) {
     return <div className="Loading">
         loading...
     </div>;

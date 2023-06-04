@@ -60,12 +60,13 @@ function WalkerProfile() {
     fetchRatings();
   }, [username]);
 
-  const notWalker = user.userType !== "walker";
 
-  const isSameUser = username === user.username;
+  const notWalker = user && user.userType !== "walker";
+
+  const isSameUser = user && username === user.username;
 
 
-  if (!user || !username) {
+  if (!username) {
     return <div className="Loading">
         loading...
     </div>;

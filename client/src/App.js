@@ -50,7 +50,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/WalkerProfile/:username" element={<WalkerProfile />} />
-            <Route path="/WalkerProfile/:username/edit" element={<EditWalker />} />
+            <Route path="/WalkerProfile/:username/edit" element={user?(<EditWalker/>):(<Navigate to="/" />)} />
             <Route path="/OwnerProfile/:username" element={<OwnerProfile />} />
             <Route path="/list" element={<Listing />} />
             <Route path="/walk/:id" element={user?(<Walk />):(<Navigate to="/" />)} />
