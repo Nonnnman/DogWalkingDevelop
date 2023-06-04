@@ -13,7 +13,7 @@ function OwnerProfile() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bookings/owner/${username}`);
+      const response = await fetch(`${window.backend}/api/bookings/owner/${username}`);
       const data = await response.json();
       setBookings(data.filter((booking) => booking.status == "ongoing" || booking.status == "expired"));
     }
@@ -21,7 +21,7 @@ function OwnerProfile() {
   }, [username]);
 
   useEffect(() => {
-    fetch(`/api/user/owner/${usernameParam}`)
+    fetch(`${window.backend}/api/user/owner/${usernameParam}`)
       .then((response) => {
         if (response.ok) {
           return response.json();

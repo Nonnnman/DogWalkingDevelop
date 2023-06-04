@@ -16,9 +16,9 @@ const BookingRequests = () => {
 
   const { user } = useAuthContext();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    fetch(`/api/user/${usernameParam}`)
+    fetch(`${window.backend}/api/user/${usernameParam}`)
       .then((response) =>{
         if (response.ok){
             return response.json();
@@ -52,7 +52,7 @@ const BookingRequests = () => {
     //print "declined for "+owner
     alert("declined for "+owner);
 
-    fetch(`/api/bookings/${booking_id}`, {
+    fetch(`${window.backend}/api/bookings/${booking_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const BookingRequests = () => {
     //print "accepted for "+owner
     alert("accepted for "+owner);
 
-    fetch(`/api/bookings/${booking_id}`, {
+    fetch(`${window.backend}/api/bookings/${booking_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const BookingRequests = () => {
       .catch((error) => console.error(error));
 
       //set status of segment to "booked"
-      fetch(`/api/segments/${segment_id}`, {
+      fetch(`${window.backend}/api/segments/${segment_id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -113,14 +113,14 @@ const BookingRequests = () => {
 
 
   useEffect(() => {
-    fetch(`/api/segments/fromUser/${username}`)
+    fetch(`${window.backend}/api/segments/fromUser/${username}`)
       .then((response) => response.json())
       .then((data) => setSegments(data));
   }, [username]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bookings/${username}`);
+      const response = await fetch(`${window.backend}/api/bookings/${username}`);
       const data = await response.json();
       setBookings(data.filter((booking) => booking.status !== "declined"));
     }

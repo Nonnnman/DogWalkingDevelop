@@ -18,7 +18,7 @@ const BookingRequests = () => {
     const navigate = useNavigate();
   
     useEffect(() => {
-      fetch(`/api/user/owner/${usernameParam}`)
+      fetch(`${window.backend}/api/user/owner/${usernameParam}`)
         .then((response) =>{
           if (response.ok){
               return response.json();
@@ -47,7 +47,7 @@ const BookingRequests = () => {
     }
 
     useEffect(() => {
-        fetch(`/api/segments/all`)
+        fetch(`${window.backend}/api/segments/all`)
           .then((response) => response.json())
           .then((data) => setSegments(data));
       }, []);
@@ -55,7 +55,7 @@ const BookingRequests = () => {
   
     useEffect(() => {
       async function fetchData() {
-        const response = await fetch(`/api/bookings/owner/${username}`);
+        const response = await fetch(`${window.backend}/api/bookings/owner/${username}`);
         const data = await response.json();
         setBookings(data.filter((booking) => booking.status !== "declined"));
       }

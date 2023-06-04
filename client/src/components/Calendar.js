@@ -15,7 +15,7 @@ const Cal = (username) => {
 
 
   useEffect(() => {
-    fetch(`/api/segments/fromUser/${username.username}`)
+    fetch(`${window.backend}/api/segments/fromUser/${username.username}`)
       .then((response) => response.json())
       .then((data) => setSegments(data));
   }, [username.username]);

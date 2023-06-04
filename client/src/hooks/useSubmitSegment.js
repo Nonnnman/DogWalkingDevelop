@@ -22,7 +22,7 @@ export const useSubmitSegment = () => {
       return;
     }
 
-    const response = await fetch("/api/segments/", {
+    const response = await fetch(`${window.backend}/api/segments/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

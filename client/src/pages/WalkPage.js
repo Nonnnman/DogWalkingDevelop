@@ -50,7 +50,7 @@ const WalkPage = () => {
 
   //fetch ratings of walker
   const fetchRatings = async () => {
-    const response = await fetch(`/api/ratings/${booking.walker}`);
+    const response = await fetch(`${window.backend}/api/ratings/${booking.walker}`);
     if (response.ok) {
       console.log("we got there")
       const data = await response.json();
@@ -60,7 +60,7 @@ const WalkPage = () => {
 
   
   const fetchBooking = async () => {
-    const response = await fetch(`/api/bookings/id/${id}`);
+    const response = await fetch(`${window.backend}/api/bookings/id/${id}`);
     const data = await response.json();
     setBooking(data);
   };
@@ -68,7 +68,7 @@ const WalkPage = () => {
   
 
   const fetchSegment = async () => {
-    const response = await fetch(`/api/segments/${booking.seg_id}`);
+    const response = await fetch(`${window.backend}/api/segments/${booking.seg_id}`);
     const data = await response.json();
     setSegment(data);
 
@@ -92,7 +92,7 @@ const WalkPage = () => {
 
 
   const handleEndWalk = async () => {
-    const response = await fetch(`/api/bookings/${id}`, {
+    const response = await fetch(`${window.backend}/api/bookings/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: "expired" }),
@@ -107,14 +107,14 @@ const WalkPage = () => {
 
     e.preventDefault();
     
-    const response = await fetch(`/api/bookings/${id}`, {
+    const response = await fetch(`${window.backend}/api/bookings/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: "rated" }),
     });
   
     if (response.ok) {
-      const postRatingResponse = await fetch("/api/ratings/", {
+      const postRatingResponse = await fetch(`${window.backend}/api/ratings/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -127,7 +127,7 @@ const WalkPage = () => {
 
       if (postRatingResponse.ok) {
         
-        await fetch(`/api/user/${booking.walker}`, {
+        await fetch(`${window.backend}/api/user/${booking.walker}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

@@ -24,7 +24,7 @@ function WalkerProfile() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bookings/${username}`);
+      const response = await fetch(`${window.backend}/api/bookings/${username}`);
       const data = await response.json();
       setBookings(data.filter((booking) => booking.status == "ongoing"));
     }
@@ -32,7 +32,7 @@ function WalkerProfile() {
   }, [username]);
 
   useEffect(() => {
-    fetch(`/api/user/${usernameParam}`)
+    fetch(`${window.backend}/api/user/${usernameParam}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -50,7 +50,7 @@ function WalkerProfile() {
 
   useEffect(() => {
     async function fetchRatings() {
-      const response = await fetch(`/api/ratings/${username}`);
+      const response = await fetch(`${window.backend}/api/ratings/${username}`);
       if (response.ok) {
         const data = await response.json();
         setRatings(data);

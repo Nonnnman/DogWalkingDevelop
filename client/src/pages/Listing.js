@@ -11,7 +11,7 @@ const ListingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/user")
+    fetch(`${window.backend}/api/user`)
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);

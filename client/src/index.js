@@ -7,6 +7,9 @@ import { BookingsContextProvider } from "./context/BookingsContext";
 import { SegmentsContextProvider } from "./context/SegmentsContext";
 import "./styles/index.css";
 
+window.backend =   "https://beans-dogwalkingservice.onrender.com"
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthContextProvider>

@@ -8,7 +8,7 @@ const WalkInterval = () => {
 
     console.log("The walk is ongoing");
 
-    fetch(`/api/bookings/${booking_id}`, {
+    fetch(`${window.backend}/api/bookings/${booking_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -26,13 +26,13 @@ const WalkInterval = () => {
     }
 
   const fetchBookings = async () => {
-    const response = await fetch("/api/bookings/all");
+    const response = await fetch(`${window.backend}/api/bookings/all`);
     const data = await response.json();
     setBookings(data.filter((booking) => booking.status === "accepted"));
   };
 
   const fetchSegments = async () => {
-    const response = await fetch("/api/segments/all");
+    const response = await fetch(`${window.backend}/api/segments/all`);
     const data = await response.json();
     setSegments(data);
   };

@@ -16,7 +16,7 @@ function BookingPage() {
 
 
   useEffect(() => {
-    fetch(`/api/user/owner/${user.username}`)
+    fetch(`${window.backend}/api/user/owner/${user.username}`)
       .then((response) =>{
         if (response.ok){
             
@@ -30,7 +30,7 @@ function BookingPage() {
   }, [user.username]);
 
   useEffect(() => {
-    fetch(`/api/segments/fromUser/${username}`)
+    fetch(`${window.backend}/api/segments/fromUser/${username}`)
       .then((response) => response.json())
       .then((data) => setSegments(data.filter((s) => s.status !== "booked")));
   }, [username]);
@@ -48,7 +48,7 @@ function BookingPage() {
       return;
     }
 
-    fetch("/api/bookings/", {
+    fetch(`${window.backend}/api/bookings/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -65,23 +65,6 @@ function BookingPage() {
 
           alert("Booking request sent to "+username);
           navigate("/");
-
-        /*fetch(`/api/segments/${selectedSegment._id}`, {
-            method: "DELETE",
-          })
-            .then((response) => {
-              if (response.ok) {
-                //save this for later
-                //updates the segments state to remove the segment that was just booked
-                setSegments((prevSegments) =>
-                  prevSegments.filter((segment) => segment._id !== selectedSegment._id)
-                );
-                setSelectedSegment(null);
-              }
-              
-              return response.json()})
-            .then((data) => console.log(data))
-            .catch((error) => console.error(error));*/
         }
         return response.json() 
       

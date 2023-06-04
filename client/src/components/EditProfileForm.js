@@ -12,7 +12,7 @@ const EditForm = (username) => {
   const handleEditPrice = async (e) => {
     e.preventDefault();
 
-    await fetch(`/api/user/${username.username}`, {
+    await fetch(`${window.backend}/api/user/${username.username}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const EditForm = (username) => {
   const handleEditBio = async (e) => {
     e.preventDefault();
 
-    await fetch(`/api/user/${username.username}`, {
+    await fetch(`${window.backend}/api/user/${username.username}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
