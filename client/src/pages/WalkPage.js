@@ -176,6 +176,9 @@ const WalkPage = () => {
           <div className="infoItem">
             <p>End date: {new Date(segment.end).toLocaleString('en-US', options)}</p>
           </div>
+          <div className="infoItem">
+            <p>Location: {booking.address}</p>
+          </div>
         </div>
 
         {booking.status === "ongoing" ? (

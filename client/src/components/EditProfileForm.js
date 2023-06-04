@@ -73,6 +73,7 @@ const EditForm = (username) => {
           <br/>
           <button >Submit</button>
           </form>
+          
         </div>
       </div>
     </div>

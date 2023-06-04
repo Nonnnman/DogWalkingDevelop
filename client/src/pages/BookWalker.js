@@ -9,6 +9,7 @@ function BookingPage() {
   const { user } = useAuthContext();
   const [segments, setSegments] = useState([]);
   const [selectedSegment, setSelectedSegment] = useState(null);
+  const [address, setAddress] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const navigate = useNavigate();
 
@@ -56,6 +57,7 @@ function BookingPage() {
         owner: ownerName,
         seg_id: selectedSegment._id,
         status: "requested",
+        address: address,
       }),
     })
       .then((response) => {
@@ -95,6 +97,14 @@ function BookingPage() {
             </li>
           ))}
         </ul>
+        <h3>Point of pick up and return: </h3>
+        <input 
+          type="text"
+          className="addressInput"
+          placeholder="Budapest, 1051, Váci utca 1-3."
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+           />
         <button 
         //if there are no segments, disable the button
         disabled={segments.length === 0}

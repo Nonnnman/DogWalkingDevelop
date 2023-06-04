@@ -11,7 +11,7 @@ const Home = () => {
             <img src={dogWalker} alt="Dog walker walking a dog" />
 			<div className="hero">
 				<h2>Welcome to Beans</h2>
-				<p>Are you looking for someone to walk your dog? Look no further! Our website connects dog owners with dog walkers who are students and have free time, love dogs and would want to walk them to earn revenue.</p>
+				<p>Beans is a website that connects dog owners with student dog walkers who love dogs and want to earn some extra money. Whether you need a one-time walk or a regular schedule, you can find your perfect match on Beans.</p>
 				<a href="/list" className="cta-button">Find a Dog Walker</a>
 			</div>
 		</main>

@@ -18,6 +18,10 @@ const ProfileSchema = new Schema({
     type: String,
     required: true,
   },
+  address: {
+    type: String,
+    required: false,
+  },
   rating: {
     type: Number,
     required: false,
