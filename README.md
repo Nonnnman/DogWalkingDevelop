@@ -21,12 +21,12 @@ It is a web service intended for matching dog walkers and dog owners locally.
 
 </br>
 
-![Screenshot1](./docs/capture.PNG)
+![Screenshot1](./docs/Capture.PNG)
 
 </br>
 
-![Screenshot2](./docs/capture2.PNG)
+![Screenshot2](./docs/Capture2.PNG)
 
 </br>
 
-![Screenshot3](./docs/capture3.PNG)
+![Screenshot3](./docs/Capture3.PNG)
