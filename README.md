@@ -1,19 +1,32 @@
-# Dog Walking App
-The Dog Walking App is a web application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack.
-## Prerequisites
-Before running the Dog Walking App, ensure you have the following installed:
+# Dog Walking web application
+The dog walking app is a student project made in JS using MERN (MongoDB, Express.js, React.js, Node.js)
+It is a web service intended for matching dog walkers and dog owners locally.
 
-- Node.js (v12 or above)
-- MongoDB
+## Project Documentation
 
-## Usage
-The Dog Walking App allows users to:
+1. Market, Users & KPI
+- [Presentation](./docs/1-KPI.pdf)
+2. User Interviews & Stories
+- [Presentation](./docs/2-user_interviews.pdf)
+3. MVP Scope
+- [MVP sheet jira print](./docs/3-MVP_scope.xlsx)
+- [Tasks sheet jira print](./docs/3-MVP_tasks.xlsx)
+4. Retrospective
+- [Document](./docs/4-retrospective.pdf)
+5. Product & Demo
+- [Presentation](./docs/5-demo.pdf)
+- [MVP realization sheet](./docs/5-MVP_demo.xlsx)
+- [KPI testing document](./docs/5-KPI_demo.docx)
+- Preview screenshots :
 
-View a list of dog walkers in their area
-Click on a dog walker to view their details
-Contact a dog walker for services
-To use the Dog Walking App:
+</br>
 
-On the homepage, you will see a list of dog walkers.
-Click on a dog walker's name to view their detailed profile, including their name, photo, contact information, experience, rating, and customer reviews.
-If you wish to contact the dog walker for services, use the provided contact information (phone number, email, etc.) to get in touch with them.
+![Screenshot1](./docs/capture.PNG)
+
+</br>
+
+![Screenshot2](./docs/capture2.PNG)
+
+</br>
+
+![Screenshot3](./docs/capture3.PNG)
